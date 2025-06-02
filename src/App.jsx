@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import proyecto1 from "./static/proyecto1.png";
 import proyecto2 from "./static/proyecto2.png";
 import proyecto3 from "./static/proyecto3.png";
+import proyecto4 from "./static/proyecto4.png";
 
 export default function App() {
   const form = useRef();
@@ -27,7 +28,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("servicios");
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 3; // Total de proyectos
+  const totalSlides = 4; // Total de proyectos
 
   // Cambia automáticamente cada 5 segundos
   useEffect(() => {
@@ -501,6 +502,39 @@ export default function App() {
                             {tech}
                           </span>
                         ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Proyecto 4 */}
+                <div className="min-w-full flex justify-center px-6">
+                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
+                    <img
+                      src={proyecto4}
+                      alt="Proyecto 3"
+                      className="w-full h-full object-cover max-h-[500px]"
+                      loading="lazy"
+                    />
+                    <div className="p-6 text-left">
+                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
+                        Panadería Vigil
+                      </h2>
+                      <p className="text-gray-700 mb-4">
+                        Página web de una panadería con diseño limpio y fácil de
+                        usar.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {["HTML", "TailwindCSS", "React", "Vite"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
                   </div>
