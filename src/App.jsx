@@ -5,6 +5,11 @@ import friends from "./static/friends.png";
 import diseño from "./static/diseño.svg";
 import mantenimiento from "./static/mantenimiento.svg";
 import social from "./static/social.svg";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import proyecto1 from "./static/proyecto1.png";
+import proyecto2 from "./static/proyecto2.png";
+import proyecto3 from "./static/proyecto3.png";
 
 export default function App() {
   const form = useRef();
@@ -20,6 +25,23 @@ export default function App() {
 
   // Para resaltar el menú activo
   const [activeSection, setActiveSection] = useState("servicios");
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = 3; // Total de proyectos
+
+  // Cambia automáticamente cada 5 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
+
+  const prevSlide = () =>
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
   // Validación controlada
   const validateForm = () => {
@@ -93,7 +115,7 @@ export default function App() {
 
   // Función para detectar sección activa con scroll
   useEffect(() => {
-    const sections = ["servicios", "sobre-mi", "contacto"];
+    const sections = ["servicios", "sobre-mi", "proyectos", "contacto"];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200; // Offset para mejor detección
 
@@ -203,39 +225,43 @@ export default function App() {
                 </button>
 
                 <div className="flex flex-col mt-20 space-y-6 px-6">
-                  {["servicios", "sobre-mi", "contacto"].map((sec) => (
-                    <a
-                      key={sec}
-                      href={`#${sec}`}
-                      onClick={() => setMenuOpen(false)}
-                      className={`hover:underline ${
-                        activeSection === sec ? "underline font-bold" : ""
-                      }`}
-                    >
-                      {sec === "sobre-mi"
-                        ? "Sobre nosotros"
-                        : sec.charAt(0).toUpperCase() + sec.slice(1)}
-                    </a>
-                  ))}
+                  {["servicios", "sobre-mi", "proyectos", "contacto"].map(
+                    (sec) => (
+                      <a
+                        key={sec}
+                        href={`#${sec}`}
+                        onClick={() => setMenuOpen(false)}
+                        className={`hover:underline ${
+                          activeSection === sec ? "underline font-bold" : ""
+                        }`}
+                      >
+                        {sec === "sobre-mi"
+                          ? "Sobre nosotros"
+                          : sec.charAt(0).toUpperCase() + sec.slice(1)}
+                      </a>
+                    )
+                  )}
                 </div>
               </div>
 
               {/* Menú desktop */}
               <ul className="hidden md:flex space-x-8 font-semibold">
-                {["servicios", "sobre-mi", "contacto"].map((sec) => (
-                  <li key={sec}>
-                    <a
-                      href={`#${sec}`}
-                      className={`hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded ${
-                        activeSection === sec ? "underline font-bold" : ""
-                      }`}
-                    >
-                      {sec === "sobre-mi"
-                        ? "Sobre nosotros"
-                        : sec.charAt(0).toUpperCase() + sec.slice(1)}
-                    </a>
-                  </li>
-                ))}
+                {["servicios", "sobre-mi", "proyectos", "contacto"].map(
+                  (sec) => (
+                    <li key={sec}>
+                      <a
+                        href={`#${sec}`}
+                        className={`hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded ${
+                          activeSection === sec ? "underline font-bold" : ""
+                        }`}
+                      >
+                        {sec === "sobre-mi"
+                          ? "Sobre nosotros"
+                          : sec.charAt(0).toUpperCase() + sec.slice(1)}
+                      </a>
+                    </li>
+                  )
+                )}
               </ul>
             </nav>
           </div>
@@ -356,6 +382,149 @@ export default function App() {
           </div>
         </section>
 
+        {/* Sección Proyectos */}
+        <section
+          id="proyectos"
+          className="bg-white py-16 px-6"
+          aria-label="Proyectos realizados"
+        >
+          <div className="container mx-auto max-w-6xl text-center">
+            <h3 className="text-3xl font-extrabold text-indigo-900 mb-12">
+              Proyectos
+            </h3>
+
+            <div className="relative overflow-hidden">
+              <div
+                className="flex transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {/* Proyecto 1 */}
+                <div className="min-w-full flex justify-center px-6">
+                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
+                    <img
+                      src={proyecto1}
+                      alt="Proyecto 1"
+                      className="w-full h-full object-cover max-h-[500px]"
+                      loading="lazy"
+                    />
+                    <div className="p-6 text-left">
+                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
+                        GameHub
+                      </h2>
+                      <p className="text-gray-700 mb-4">
+                        Aplicación web para la gestión de torneos, foros y
+                        bibliotecas de juegos. Permite la interacción entre
+                        usuarios mediante la creación de torneos, participación
+                        en foros y organización de juegos.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {["Spring Boot", "Thymeleaf", "MySQL"].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Proyecto 2 */}
+                <div className="min-w-full flex justify-center px-6">
+                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
+                    <img
+                      src={proyecto2}
+                      alt="Proyecto 2"
+                      className="w-full h-full object-cover max-h-[500px]"
+                      loading="lazy"
+                    />
+                    <div className="p-6 text-left">
+                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
+                        Weather App
+                      </h2>
+                      <p className="text-gray-700 mb-4">
+                        Aplicación meteorológica que muestra información del
+                        clima en tiempo real gracias a la integración con la API
+                        de OpenWeatherMap. Además, incluye imágenes dinámicas
+                        relacionadas al clima, obtenidas mediante la API de
+                        Unsplash.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {["HTML", "CSS", "Bootstrap", "JavaScript"].map(
+                          (tech) => (
+                            <span
+                              key={tech}
+                              className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
+                            >
+                              {tech}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Proyecto 3 */}
+                <div className="min-w-full flex justify-center px-6">
+                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
+                    <img
+                      src={proyecto3}
+                      alt="Proyecto 3"
+                      className="w-full h-full object-cover max-h-[500px]"
+                      loading="lazy"
+                    />
+                    <div className="p-6 text-left">
+                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
+                        SergiDex
+                      </h2>
+                      <p className="text-gray-700 mb-4">
+                        Sitio web temático de Pokémon con múltiples
+                        funcionalidades. Permite buscar Pokémon, filtrar por
+                        tipos, crear tu propio equipo, consultar la tabla de
+                        tipos y más.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {[
+                          "HTML",
+                          "CSS",
+                          "Bootstrap",
+                          "TypeScript",
+                          "Angular",
+                        ].map((tech) => (
+                          <span
+                            key={tech}
+                            className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botones navegación */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition"
+                aria-label="Anterior"
+              >
+                <ChevronLeft className="text-indigo-600" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition"
+                aria-label="Siguiente"
+              >
+                <ChevronRight className="text-indigo-600" />
+              </button>
+            </div>
+          </div>
+        </section>
         {/* Contacto */}
         <section
           id="contacto"
@@ -499,6 +668,7 @@ export default function App() {
               &copy; 2025 VigilDigital. Todos los derechos reservados.
             </p>
             <div className="flex space-x-6">
+              {/*
               <a
                 href="https://twitter.com"
                 target="_blank"
@@ -544,6 +714,7 @@ export default function App() {
                   <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm8.25 2a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" />
                 </svg>
               </a>
+              */}
               <a
                 href="https://www.linkedin.com/in/sergio-vigil-d%C3%ADaz/"
                 target="_blank"
