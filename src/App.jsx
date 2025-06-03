@@ -650,7 +650,7 @@ export default function App() {
         {/* Precios */}
         <section className="py-20 bg-white px-6 py-16" id="precios">
           <h3 className="text-3xl font-extrabold text-indigo-900 mb-12 text-center">
-            Precios y Servicios
+            Precios
           </h3>
           <div className="max-w-7xl mx-auto px-4 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
