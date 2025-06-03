@@ -11,6 +11,7 @@ import proyecto1 from "./static/proyecto1.png";
 import proyecto2 from "./static/proyecto2.png";
 import proyecto3 from "./static/proyecto3.png";
 import proyecto4 from "./static/proyecto4.png";
+import clsx from "clsx";
 
 export default function App() {
   const form = useRef();
@@ -116,7 +117,13 @@ export default function App() {
 
   // Función para detectar sección activa con scroll
   useEffect(() => {
-    const sections = ["servicios", "sobre-mi", "proyectos", "contacto"];
+    const sections = [
+      "servicios",
+      "sobre-mi",
+      "proyectos",
+      "precios",
+      "contacto",
+    ];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200; // Offset para mejor detección
 
@@ -136,6 +143,78 @@ export default function App() {
 
   // Cerrar menú al hacer click fuera (fondo semitransparente)
   const closeMenu = () => setMenuOpen(false);
+
+  const services = [
+    {
+      title: "Creación de Web Básica",
+      description: "Ideal para sitios personales o informativos.",
+      price: 199,
+      priceText: "€199",
+      features: [
+        "1 página de inicio",
+        "Diseño responsivo",
+        "Formulario de contacto básico",
+      ],
+      color: "from-indigo-500 to-purple-600",
+    },
+    {
+      title: "Creación de Web Mediana",
+      description: "Para pequeñas empresas con varias secciones.",
+      price: 399,
+      priceText: "€399",
+      features: [
+        "Hasta 5 páginas",
+        "Diseño a medida",
+        "Optimización SEO básica",
+      ],
+      color: "from-green-400 to-teal-500",
+    },
+    {
+      title: "Creación de Web Completa (Fullstack)",
+      description: "Sitio completo con frontend y backend personalizado.",
+      price: 799,
+      priceText: "€799",
+      features: [
+        "Frontend + Backend",
+        "Panel de administración",
+        "Base de datos integrada",
+        "Hosting y despliegue incluidos",
+      ],
+      color: "from-yellow-400 to-yellow-600",
+    },
+    {
+      title: "Gestión de Redes Sociales",
+      description: "Publicaciones, diseño y seguimiento mensual.",
+      price: 150,
+      priceText: "€150/mes",
+      features: [
+        "4 publicaciones semanales",
+        "Diseño gráfico incluido",
+        "Gestión de comentarios",
+      ],
+      color: "from-pink-400 to-pink-600",
+    },
+    {
+      title: "Mantenimiento Web",
+      description: "Actualizaciones, backups y soporte técnico mensual.",
+      price: 99,
+      priceText: "€99/mes",
+      features: [
+        "Actualizaciones periódicas",
+        "Copia de seguridad semanal",
+        "Soporte prioritario",
+      ],
+      color: "from-gray-500 to-gray-700",
+    },
+  ];
+
+  // Utilidad para aplicar clases según el precio
+  const getCardStyle = (price) => {
+    if (price >= 1000)
+      return "border-2 border-yellow-500 scale-105 bg-yellow-50";
+    if (price >= 500) return "border border-blue-400 bg-blue-50";
+    return "border border-gray-200 bg-white";
+  };
 
   return (
     <>
@@ -226,43 +305,51 @@ export default function App() {
                 </button>
 
                 <div className="flex flex-col mt-20 space-y-6 px-6">
-                  {["servicios", "sobre-mi", "proyectos", "contacto"].map(
-                    (sec) => (
-                      <a
-                        key={sec}
-                        href={`#${sec}`}
-                        onClick={() => setMenuOpen(false)}
-                        className={`hover:underline ${
-                          activeSection === sec ? "underline font-bold" : ""
-                        }`}
-                      >
-                        {sec === "sobre-mi"
-                          ? "Sobre nosotros"
-                          : sec.charAt(0).toUpperCase() + sec.slice(1)}
-                      </a>
-                    )
-                  )}
+                  {[
+                    "servicios",
+                    "sobre-mi",
+                    "proyectos",
+                    "precios",
+                    "contacto",
+                  ].map((sec) => (
+                    <a
+                      key={sec}
+                      href={`#${sec}`}
+                      onClick={() => setMenuOpen(false)}
+                      className={`hover:underline ${
+                        activeSection === sec ? "underline font-bold" : ""
+                      }`}
+                    >
+                      {sec === "sobre-mi"
+                        ? "Sobre nosotros"
+                        : sec.charAt(0).toUpperCase() + sec.slice(1)}
+                    </a>
+                  ))}
                 </div>
               </div>
 
               {/* Menú desktop */}
               <ul className="hidden md:flex space-x-8 font-semibold">
-                {["servicios", "sobre-mi", "proyectos", "contacto"].map(
-                  (sec) => (
-                    <li key={sec}>
-                      <a
-                        href={`#${sec}`}
-                        className={`hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded ${
-                          activeSection === sec ? "underline font-bold" : ""
-                        }`}
-                      >
-                        {sec === "sobre-mi"
-                          ? "Sobre nosotros"
-                          : sec.charAt(0).toUpperCase() + sec.slice(1)}
-                      </a>
-                    </li>
-                  )
-                )}
+                {[
+                  "servicios",
+                  "sobre-mi",
+                  "proyectos",
+                  "precios",
+                  "contacto",
+                ].map((sec) => (
+                  <li key={sec}>
+                    <a
+                      href={`#${sec}`}
+                      className={`hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded ${
+                        activeSection === sec ? "underline font-bold" : ""
+                      }`}
+                    >
+                      {sec === "sobre-mi"
+                        ? "Sobre nosotros"
+                        : sec.charAt(0).toUpperCase() + sec.slice(1)}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -296,7 +383,7 @@ export default function App() {
         {/* Servicios */}
         <section
           id="servicios"
-          className="container mx-auto px-6 py-16 max-w-5xl"
+          className="container mx-auto px-6 py-16 max-w-5xl "
           aria-label="Servicios ofrecidos"
         >
           <h3 className="text-3xl font-extrabold text-center mb-12 text-indigo-900">
@@ -357,7 +444,7 @@ export default function App() {
         {/* Sobre nosotros */}
         <section
           id="sobre-mi"
-          className="bg-indigo-50 px-6 py-16"
+          className="bg-white px-6 py-16"
           aria-label="Sobre nosotros"
         >
           <div className="container mx-auto max-w-4xl flex flex-col md:flex-row items-center gap-10">
@@ -386,7 +473,7 @@ export default function App() {
         {/* Sección Proyectos */}
         <section
           id="proyectos"
-          className="bg-white py-16 px-6"
+          className="py-20 bg-indigo-50 px-6 py-16"
           aria-label="Proyectos realizados"
         >
           <div className="container mx-auto max-w-6xl text-center">
@@ -559,6 +646,52 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        {/* Precios */}
+        <section className="py-20 bg-white px-6 py-16" id="precios">
+          <h3 className="text-3xl font-extrabold text-indigo-900 mb-12 text-center">
+            Precios y Servicios
+          </h3>
+          <div className="max-w-7xl mx-auto px-4 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className={`flex flex-col rounded-3xl shadow-xl overflow-hidden transform transition-transform hover:scale-105`}
+              >
+                <div className={`bg-gradient-to-r ${service.color} p-8`}>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-white/90 mb-6">{service.description}</p>
+                  <p className="text-4xl font-extrabold text-white">
+                    {service.priceText}
+                  </p>
+                </div>
+                <div className="bg-white p-8 flex-grow flex flex-col">
+                  <ul className="mb-8 space-y-3 text-gray-700 flex-grow">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center">
+                        <svg
+                          className="w-5 h-5 text-green-500 mr-3 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Contacto */}
         <section
           id="contacto"
@@ -693,6 +826,30 @@ export default function App() {
               </p>
             )}
           </form>
+
+          {/* Bloque de contacto WhatsApp */}
+          <div className="mb-10 text-center mt-10">
+            <p className="text-lg text-gray-700 mb-4">
+              También puedes contactarme por WhatsApp al número:
+            </p>
+            <a
+              href="https://wa.me/34692949608"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full py-3 px-6 shadow-md transition"
+              aria-label="Contactar por WhatsApp al 692 94 96 08"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mr-2"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
+              </svg>
+              WhatsApp: 692 94 96 08
+            </a>
+          </div>
         </section>
 
         {/* Footer con redes sociales */}
@@ -702,24 +859,25 @@ export default function App() {
               &copy; 2025 VigilDigital. Todos los derechos reservados.
             </p>
             <div className="flex space-x-6">
-              {/*
               <a
-                href="https://twitter.com"
+                href="https://wa.me/34692949608"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Twitter"
+                aria-label="WhatsApp"
                 className="hover:text-indigo-300 transition"
               >
                 <svg
-                  className="w-6 h-6 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 mr-2"
+                  fill="currentColor"
                   viewBox="0 0 24 24"
-                  aria-hidden="true"
                 >
-                  <path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.97-2.48 9.08 9.08 0 01-2.88 1.1 4.48 4.48 0 00-7.64 4.09A12.72 12.72 0 013 4.15a4.48 4.48 0 001.39 6 4.4 4.4 0 01-2.03-.56v.06a4.48 4.48 0 003.6 4.4 4.5 4.5 0 01-2.02.08 4.48 4.48 0 004.18 3.12A9 9 0 012 19.54 12.72 12.72 0 008.29 21c7.55 0 11.68-6.3 11.68-11.75 0-.18-.01-.35-.02-.53A8.18 8.18 0 0023 3z" />
+                  <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
                 </svg>
               </a>
+
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61576959064306"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -733,22 +891,7 @@ export default function App() {
                   <path d="M22.675 0H1.325C.593 0 0 .592 0 1.324v21.352C0 23.407.592 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.311h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.324-.593 1.324-1.324V1.324C24 .592 23.408 0 22.675 0z" />
                 </svg>
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="hover:text-indigo-300 transition"
-              >
-                <svg
-                  className="w-6 h-6 fill-current"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm8.25 2a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" />
-                </svg>
-              </a>
-              */}
+
               <a
                 href="https://www.linkedin.com/in/sergio-vigil-d%C3%ADaz/"
                 target="_blank"
