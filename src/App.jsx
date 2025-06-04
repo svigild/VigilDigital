@@ -1,17 +1,21 @@
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import ilustracion from "./static/ilustracion.png";
 import friends from "./static/friends.png";
 import diseño from "./static/diseño.svg";
 import mantenimiento from "./static/mantenimiento.svg";
 import social from "./static/social.svg";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import proyecto1 from "./static/proyecto1.png";
 import proyecto2 from "./static/proyecto2.png";
 import proyecto3 from "./static/proyecto3.png";
 import proyecto4 from "./static/proyecto4.png";
-import clsx from "clsx";
+import ServiceCard from "./components/ServiceCard";
+import ProjectCard from "./components/ProjectCard";
+import ContactForm from "./components/ContactForm";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+import FadeInWhenVisible from "./components/FadeInWhenVisible";
 
 export default function App() {
   const form = useRef();
@@ -144,77 +148,88 @@ export default function App() {
   // Cerrar menú al hacer click fuera (fondo semitransparente)
   const closeMenu = () => setMenuOpen(false);
 
-  const services = [
+  const projects = [
     {
-      title: "Creación de Web Básica",
-      description: "Ideal para sitios personales o informativos.",
-      price: 199,
-      priceText: "€199",
-      features: [
-        "1 página de inicio",
-        "Diseño responsivo",
-        "Formulario de contacto básico",
-      ],
-      color: "from-indigo-500 to-purple-600",
+      image: proyecto1,
+      title: "GameHub",
+      description:
+        "App para torneos, foros y biblioteca de juegos. Permite crear torneos y foros.",
+      techs: ["Spring Boot", "Thymeleaf", "MySQL"],
     },
     {
-      title: "Creación de Web Mediana",
-      description: "Para pequeñas empresas con varias secciones.",
-      price: 399,
-      priceText: "€399",
-      features: [
-        "Hasta 5 páginas",
-        "Diseño a medida",
-        "Optimización SEO básica",
-      ],
-      color: "from-green-400 to-teal-500",
+      image: proyecto2,
+      title: "Weather App",
+      description:
+        "App meteorológica con OpenWeatherMap y fotos dinámicas de Unsplash.",
+      techs: ["HTML", "CSS", "Bootstrap", "JavaScript"],
     },
     {
-      title: "Creación de Web Completa (Fullstack)",
-      description: "Sitio completo con frontend y backend personalizado.",
-      price: 799,
-      priceText: "€799",
-      features: [
-        "Frontend + Backend",
-        "Panel de administración",
-        "Base de datos integrada",
-        "Hosting y despliegue incluidos",
-      ],
-      color: "from-yellow-400 to-yellow-600",
+      image: proyecto3,
+      title: "SergiDex",
+      description:
+        "Sitio temático Pokémon: búsqueda, tipos, equipos y tabla de daños.",
+      techs: ["HTML", "CSS", "Bootstrap", "TypeScript", "Angular"],
     },
     {
-      title: "Gestión de Redes Sociales",
-      description: "Publicaciones, diseño y seguimiento mensual.",
-      price: 150,
-      priceText: "€150/mes",
-      features: [
-        "4 publicaciones semanales",
-        "Diseño gráfico incluido",
-        "Gestión de comentarios",
-      ],
-      color: "from-pink-400 to-pink-600",
-    },
-    {
-      title: "Mantenimiento Web",
-      description: "Actualizaciones, backups y soporte técnico mensual.",
-      price: 99,
-      priceText: "€99/mes",
-      features: [
-        "Actualizaciones periódicas",
-        "Copia de seguridad semanal",
-        "Soporte prioritario",
-      ],
-      color: "from-gray-500 to-gray-700",
+      image: proyecto4,
+      title: "Panadería Vigil",
+      description: "Web limpia y sencilla para una panadería local.",
+      techs: ["HTML", "TailwindCSS", "React", "Vite"],
     },
   ];
 
-  // Utilidad para aplicar clases según el precio
-  const getCardStyle = (price) => {
-    if (price >= 1000)
-      return "border-2 border-yellow-500 scale-105 bg-yellow-50";
-    if (price >= 500) return "border border-blue-400 bg-blue-50";
-    return "border border-gray-200 bg-white";
-  };
+  const services = [
+    {
+      title: "Impulso Express",
+      description:
+        "Tu primera web profesional de una sola página. Presencia online rápida, atractiva y efectiva.",
+      priceText: "199 €",
+      color: "from-pink-500 to-fuchsia-600",
+      features: [
+        "Diseño moderno y responsive",
+        "1 sección (scroll único)",
+        "Formulario de contacto",
+        "Integración a redes sociales",
+        "Entrega rápida en 5 días",
+      ],
+    },
+    {
+      title: "Presencia Pro",
+      description:
+        "Web multipágina para negocios que quieren mostrar más contenido y destacar frente a la competencia.",
+      priceText: "349 €",
+      color: "from-orange-500 to-amber-500",
+      features: [
+        "Hasta 4 secciones",
+        "Diseño adaptado a tu imagen de marca",
+        "Formulario de contacto",
+        "Optimización básica para buscadores (SEO)",
+        "Dominio + hosting 1 año incluidos",
+      ],
+    },
+    {
+      title: "Web a Medida",
+      description:
+        "Desarrollo web completo con funcionalidades personalizadas para negocios que necesitan más.",
+      priceText: "549 €",
+      color: "from-emerald-500 to-blue-500",
+      features: [
+        "Hasta 8 secciones o páginas",
+        "Funcionalidades a medida (blog, catálogo, reservas, etc.)",
+        "SEO inicial + rendimiento optimizado",
+        "Google Analytics instalado",
+        "Dominio + hosting incluidos por 1 año",
+      ],
+    },
+  ];
+
+  const firstMenuItemRef = useRef(null);
+
+  useEffect(() => {
+    if (menuOpen && firstMenuItemRef.current) {
+      firstMenuItemRef.current.focus();
+    }
+  }, [menuOpen]);
 
   return (
     <>
@@ -233,7 +248,11 @@ export default function App() {
               VigilDigital
             </h1>
 
-            <nav className="relative">
+            <nav
+              className="relative"
+              role="navigation"
+              aria-label="Menú principal"
+            >
               {/* Botón hamburguesa */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -311,10 +330,11 @@ export default function App() {
                     "proyectos",
                     "precios",
                     "contacto",
-                  ].map((sec) => (
+                  ].map((sec, i) => (
                     <a
                       key={sec}
                       href={`#${sec}`}
+                      ref={i === 0 ? firstMenuItemRef : null}
                       onClick={() => setMenuOpen(false)}
                       className={`hover:underline ${
                         activeSection === sec ? "underline font-bold" : ""
@@ -355,92 +375,65 @@ export default function App() {
           </div>
         </header>
 
-        {/* Hero */}
-        <section className="flex-grow bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300 text-indigo-900 flex flex-col justify-center items-center text-center px-4 py-20">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight drop-shadow-lg">
-            Tu web y redes sociales, al siguiente nivel
-          </h2>
-          <p className="text-lg md:text-xl max-w-xl mb-8 drop-shadow-md">
-            Desarrollamos páginas web modernas y gestionamos tus redes sociales
-            para que tu negocio crezca sin complicaciones.
-          </p>
-          <a
-            href="#contacto"
-            className="bg-white text-indigo-700 font-semibold px-6 py-3 rounded-md shadow-md hover:bg-indigo-100 transition"
-          >
-            Solicita tu presupuesto
-          </a>
-
-          {/* Ilustración */}
-          <img
-            src={ilustracion}
-            alt="Ilustración"
-            className="w-full max-w-md object-contain"
-            loading="lazy"
-          />
-        </section>
+        <Hero />
 
         {/* Servicios */}
-        <section
-          id="servicios"
-          className="container mx-auto px-6 py-16 max-w-5xl "
-          aria-label="Servicios ofrecidos"
-        >
-          <h3 className="text-3xl font-extrabold text-center mb-12 text-indigo-900">
-            Servicios
-          </h3>
-          <div className="grid md:grid-cols-3 gap-10">
-            <article className="border rounded-lg p-6 shadow-md hover:shadow-lg transition transform hover:-translate-y-1 bg-white">
-              <img
-                src={diseño}
-                alt="Icono Diseño y Desarrollo Web"
-                className="mx-auto mb-4 w-20 h-20"
-                loading="lazy"
-              />
-              <h4 className="text-xl font-semibold mb-3 text-indigo-700">
-                Diseño y Desarrollo Web
-              </h4>
-              <p>
-                Creamos páginas web personalizadas, responsivas y optimizadas
-                para que tu negocio destaque en internet.
-              </p>
-            </article>
+        <FadeInWhenVisible>
+          <section
+            id="servicios"
+            className="container mx-auto px-6 py-20 max-w-6xl"
+            aria-label="Servicios ofrecidos"
+          >
+            <h3 className="text-4xl font-extrabold text-center mb-16 text-indigo-900 tracking-tight">
+              Nuestros Servicios Premium
+            </h3>
 
-            <article className="border rounded-lg p-6 shadow-md hover:shadow-lg transition transform hover:-translate-y-1 bg-white cursor-default">
-              <img
-                src={mantenimiento}
-                alt="Icono Mantenimiento y Soporte"
-                className="mx-auto mb-4 w-20 h-20"
-                loading="lazy"
-              />
-              <h4 className="text-xl font-semibold mb-3 text-indigo-700">
-                Mantenimiento y Soporte
-              </h4>
-              <p>
-                Ofrecemos mantenimiento continuo y soporte técnico para que tu
-                página web siempre funcione sin problemas, esté actualizada y
-                segura.
-              </p>
-            </article>
+            <div className="grid md:grid-cols-3 gap-12">
+              {[
+                {
+                  icon: diseño,
+                  title: "Diseño y Desarrollo Web",
+                  description:
+                    "Creamos páginas web personalizadas, responsivas y optimizadas para que tu negocio destaque en internet, con un diseño moderno y experiencia intuitiva.",
+                },
+                {
+                  icon: mantenimiento,
+                  title: "Mantenimiento y Soporte",
+                  description:
+                    "Mantenemos tu sitio web seguro, actualizado y funcionando al 100%, para que puedas enfocarte en crecer sin preocupaciones técnicas.",
+                },
+                {
+                  icon: social,
+                  title: "Gestión de Redes Sociales",
+                  description:
+                    "Impulsamos tu presencia digital con estrategias de contenido profesional para atraer y fidelizar clientes en tus redes sociales.",
+                },
+              ].map(({ icon, title, description }, i) => (
+                <article
+                  key={i}
+                  className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-3 flex flex-col items-center text-center"
+                >
+                  <div className="flex items-center justify-center w-24 h-24 mb-6 rounded-full bg-indigo-100">
+                    <img
+                      src={icon}
+                      alt={`Icono ${title}`}
+                      className="w-14 h-14 object-contain"
+                      loading="lazy"
+                    />
+                  </div>
 
-            <article className="border rounded-lg p-6 shadow-md hover:shadow-lg transition transform hover:-translate-y-1 bg-white">
-              <img
-                src={social}
-                alt="Icono Gestión de Redes Sociales"
-                className="mx-auto mb-4 w-20 h-20"
-                loading="lazy"
-              />
-              <h4 className="text-xl font-semibold mb-3 text-indigo-700">
-                Gestión de Redes Sociales
-              </h4>
-              <p>
-                Potenciamos tu presencia en redes sociales para atraer más
-                clientes y fidelizarlos con contenido relevante y profesional.
-              </p>
-            </article>
-          </div>
-        </section>
+                  <h4 className="text-2xl font-extrabold mb-4 text-indigo-800 tracking-wide">
+                    {title}
+                  </h4>
 
+                  <p className="text-gray-700 leading-relaxed text-base max-w-xs">
+                    {description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </FadeInWhenVisible>
         {/* Sobre nosotros */}
         <section
           id="sobre-mi"
@@ -486,146 +479,9 @@ export default function App() {
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                {/* Proyecto 1 */}
-                <div className="min-w-full flex justify-center px-6">
-                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
-                    <img
-                      src={proyecto1}
-                      alt="Proyecto 1"
-                      className="w-full h-full object-cover max-h-[500px]"
-                      loading="lazy"
-                    />
-                    <div className="p-6 text-left">
-                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
-                        GameHub
-                      </h2>
-                      <p className="text-gray-700 mb-4">
-                        Aplicación web para la gestión de torneos, foros y
-                        bibliotecas de juegos. Permite la interacción entre
-                        usuarios mediante la creación de torneos, participación
-                        en foros y organización de juegos.
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {["Spring Boot", "Thymeleaf", "MySQL"].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Proyecto 2 */}
-                <div className="min-w-full flex justify-center px-6">
-                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
-                    <img
-                      src={proyecto2}
-                      alt="Proyecto 2"
-                      className="w-full h-full object-cover max-h-[500px]"
-                      loading="lazy"
-                    />
-                    <div className="p-6 text-left">
-                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
-                        Weather App
-                      </h2>
-                      <p className="text-gray-700 mb-4">
-                        Aplicación meteorológica que muestra información del
-                        clima en tiempo real gracias a la integración con la API
-                        de OpenWeatherMap. Además, incluye imágenes dinámicas
-                        relacionadas al clima, obtenidas mediante la API de
-                        Unsplash.
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {["HTML", "CSS", "Bootstrap", "JavaScript"].map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Proyecto 3 */}
-                <div className="min-w-full flex justify-center px-6">
-                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
-                    <img
-                      src={proyecto3}
-                      alt="Proyecto 3"
-                      className="w-full h-full object-cover max-h-[500px]"
-                      loading="lazy"
-                    />
-                    <div className="p-6 text-left">
-                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
-                        SergiDex
-                      </h2>
-                      <p className="text-gray-700 mb-4">
-                        Sitio web temático de Pokémon con múltiples
-                        funcionalidades. Permite buscar Pokémon, filtrar por
-                        tipos, crear tu propio equipo, consultar la tabla de
-                        tipos y más.
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {[
-                          "HTML",
-                          "CSS",
-                          "Bootstrap",
-                          "TypeScript",
-                          "Angular",
-                        ].map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Proyecto 4 */}
-                <div className="min-w-full flex justify-center px-6">
-                  <div className="grid md:grid-cols-2 gap-6 items-center bg-white rounded-2xl shadow-lg overflow-hidden max-w-6xl">
-                    <img
-                      src={proyecto4}
-                      alt="Proyecto 3"
-                      className="w-full h-full object-cover max-h-[500px]"
-                      loading="lazy"
-                    />
-                    <div className="p-6 text-left">
-                      <h2 className="text-2xl font-bold mb-4 text-indigo-900">
-                        Panadería Vigil
-                      </h2>
-                      <p className="text-gray-700 mb-4">
-                        Página web de una panadería con diseño limpio y fácil de
-                        usar.
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {["HTML", "TailwindCSS", "React", "Vite"].map(
-                          (tech) => (
-                            <span
-                              key={tech}
-                              className="inline-block bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full"
-                            >
-                              {tech}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {projects.map((p, i) => (
+                  <ProjectCard key={i} {...p} />
+                ))}
               </div>
 
               {/* Botones navegación */}
@@ -648,268 +504,122 @@ export default function App() {
         </section>
 
         {/* Precios */}
-        <section className="py-20 bg-white px-6 py-16" id="precios">
-          <h3 className="text-3xl font-extrabold text-indigo-900 mb-12 text-center">
-            Precios
-          </h3>
-          <div className="max-w-7xl mx-auto px-4 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`flex flex-col rounded-3xl shadow-xl overflow-hidden transform transition-transform hover:scale-105`}
-              >
-                <div className={`bg-gradient-to-r ${service.color} p-8`}>
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-white/90 mb-6">{service.description}</p>
-                  <p className="text-4xl font-extrabold text-white">
-                    {service.priceText}
-                  </p>
-                </div>
-                <div className="bg-white p-8 flex-grow flex flex-col">
-                  <ul className="mb-8 space-y-3 text-gray-700 flex-grow">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center">
-                        <svg
-                          className="w-5 h-5 text-green-500 mr-3 flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <FadeInWhenVisible>
+          <section className="py-20 bg-white px-6 py-16" id="precios">
+            <h3 className="text-3xl font-extrabold text-indigo-900 mb-12 text-center">
+              Planes y Precios
+            </h3>
+            <p className="text-center text-gray-700 mb-12 max-w-2xl mx-auto">
+              Estos son nuestros planes más populares, diseñados para adaptarse
+              a las necesidades de distintos tipos de negocios. Todos los planes
+              incluyen soporte y personalización.
+            </p>
+            <div className="max-w-7xl mx-auto px-4 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map((service, index) => (
+                <ServiceCard key={index} service={service} />
+              ))}
+            </div>
+          </section>
+        </FadeInWhenVisible>
 
         {/* Contacto */}
-        <section
-          id="contacto"
-          className="container mx-auto px-6 py-16 max-w-4xl"
-          aria-label="Formulario de contacto"
-        >
-          <h3 className="text-3xl font-extrabold text-center mb-8 text-indigo-900">
-            Contacto
-          </h3>
-
-          <form
-            ref={form}
-            onSubmit={sendEmail}
-            noValidate
-            aria-live="polite"
-            aria-describedby="form-status"
-            className="flex flex-col gap-6"
+        <FadeInWhenVisible>
+          <section
+            id="contacto"
+            className="container mx-auto px-6 py-16 max-w-4xl"
+            aria-label="Formulario de contacto"
           >
-            <label htmlFor="name" className="font-semibold text-indigo-900">
-              Nombre
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Tu nombre"
-              required
-              minLength={2}
-              maxLength={50}
-              value={formData.name}
-              onChange={handleChange}
-              className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              aria-describedby="name-error"
-            />
-            {formData.name.trim().length > 0 &&
-              (formData.name.trim().length < 2 ||
-                formData.name.trim().length > 50) && (
-                <p
-                  id="name-error"
-                  className="text-sm text-red-600"
-                  role="alert"
-                >
-                  El nombre debe tener entre 2 y 50 caracteres.
-                </p>
-              )}
+            <h3 className="text-3xl font-extrabold text-center mb-8 text-indigo-900">
+              Contacto
+            </h3>
 
-            <label
-              htmlFor="from_email"
-              className="font-semibold text-indigo-900"
-            >
-              Correo electrónico
-            </label>
-            <input
-              type="email"
-              id="from_email"
-              name="from_email"
-              placeholder="tucorreo@ejemplo.com"
-              required
-              value={formData.from_email}
-              onChange={handleChange}
-              className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              aria-describedby="email-error"
-            />
-            {formData.from_email.length > 0 &&
-              !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.from_email) && (
-                <p
-                  id="email-error"
-                  className="text-sm text-red-600"
-                  role="alert"
-                >
-                  Por favor, introduce un correo válido.
-                </p>
-              )}
-
-            <label htmlFor="message" className="font-semibold text-indigo-900">
-              Mensaje
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Escribe tu mensaje aquí..."
-              required
-              minLength={10}
-              maxLength={500}
-              value={formData.message}
-              onChange={handleChange}
-              className="border rounded-md px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              aria-describedby="message-error"
-              rows={6}
-            />
-            {formData.message.trim().length > 0 &&
-              (formData.message.trim().length < 10 ||
-                formData.message.trim().length > 500) && (
-                <p
-                  id="message-error"
-                  className="text-sm text-red-600"
-                  role="alert"
-                >
-                  El mensaje debe tener entre 10 y 500 caracteres.
-                </p>
-              )}
-
-            {/* Aquí podrías insertar un CAPTCHA si lo integras */}
-
-            <button
-              type="submit"
-              disabled={
-                sending ||
-                !(
-                  formData.name.trim().length >= 2 &&
-                  formData.name.trim().length <= 50 &&
-                  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.from_email) &&
-                  formData.message.trim().length >= 10 &&
-                  formData.message.trim().length <= 500
-                )
-              }
-              className={`bg-indigo-700 text-white font-semibold rounded-md py-3 px-6 mt-4 shadow-md hover:bg-indigo-800 transition disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500`}
-            >
-              {sending ? "Enviando..." : "Enviar mensaje"}
-            </button>
-
-            {/* Estado general del formulario */}
-            {status && (
-              <p
-                id="form-status"
-                className={`mt-4 text-center ${
-                  status.type === "error" ? "text-red-600" : "text-green-600"
-                } font-semibold`}
-                role="alert"
-              >
-                {status.message}
+            <div className="mb-10 bg-indigo-50 border border-indigo-300 rounded-lg p-6 text-center">
+              <h4 className="text-xl font-semibold text-indigo-900 mb-2">
+                Tu tranquilidad, nuestra prioridad
+              </h4>
+              <p className="text-indigo-700 max-w-xl mx-auto">
+                En VigilDigital creemos que la comunicación abierta y rápida con
+                nuestros clientes es la clave para ofrecer un servicio
+                excepcional...
               </p>
-            )}
-          </form>
+            </div>
 
-          {/* Bloque de contacto WhatsApp */}
-          <div className="mb-10 text-center mt-10">
-            <p className="text-lg text-gray-700 mb-4">
-              También puedes contactarme por WhatsApp al número:
-            </p>
-            <a
-              href="https://wa.me/34692949608"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full py-3 px-6 shadow-md transition"
-              aria-label="Contactar por WhatsApp al 692 94 96 08"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 mr-2"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
-              </svg>
-              WhatsApp: 692 94 96 08
-            </a>
-          </div>
-        </section>
+            <ContactForm />
+
+            {/* Contacto alternativo: WhatsApp y Email */}
+            <div className="mt-16 text-center">
+              <p className="text-lg text-gray-700 mb-8 max-w-md mx-auto">
+                También puedes contactarnos directamente por WhatsApp o correo
+                electrónico:
+              </p>
+              <div className="flex justify-center gap-8 flex-wrap">
+                <a
+                  href="https://wa.me/34692949608"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full py-3 px-8 shadow-md transition w-64 justify-center"
+                  aria-label="Contactar por WhatsApp al 692 94 96 08"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mr-3"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
+                  </svg>
+                  692 94 96 08
+                </a>
+
+                <a
+                  href="mailto:info@vigildigital.es"
+                  className="inline-flex items-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full py-3 px-8 shadow-md transition w-64 justify-center"
+                  aria-label="Enviar email a info@vigildigital.es"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  info@vigildigital.es
+                </a>
+              </div>
+            </div>
+          </section>
+        </FadeInWhenVisible>
+
+        {/* Botón flotante de WhatsApp */}
+        <motion.a
+          initial={{ opacity: 0, scale: 0.5, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1 }}
+          href="https://wa.me/34692949608"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 md:hidden"
+          aria-label="Chatea por WhatsApp"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />{" "}
+          </svg>
+        </motion.a>
 
         {/* Footer con redes sociales */}
-        <footer className="bg-[#1e1b4b] text-[#e0e7ff] py-6">
-          <div className="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
-            <p className="mb-4 md:mb-0">
-              &copy; 2025 VigilDigital. Todos los derechos reservados.
-            </p>
-            <div className="flex space-x-6">
-              <a
-                href="https://wa.me/34692949608"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="hover:text-indigo-300 transition"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
-                </svg>
-              </a>
-
-              <a
-                href="https://www.facebook.com/profile.php?id=61576959064306"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="hover:text-indigo-300 transition"
-              >
-                <svg
-                  className="w-6 h-6 fill-current"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M22.675 0H1.325C.593 0 0 .592 0 1.324v21.352C0 23.407.592 24 1.325 24h11.495v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.311h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.324-.593 1.324-1.324V1.324C24 .592 23.408 0 22.675 0z" />
-                </svg>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/sergio-vigil-d%C3%ADaz/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:text-indigo-300 transition"
-              >
-                <svg
-                  className="w-6 h-6 fill-current"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.353V9h3.414v1.561h.049c.476-.9 1.635-1.852 3.364-1.852 3.6 0 4.268 2.368 4.268 5.451v6.292zM5.337 7.433c-1.144 0-2.07-.927-2.07-2.07 0-1.143.927-2.07 2.07-2.07 1.144 0 2.07.927 2.07 2.07 0 1.143-.926 2.07-2.07 2.07zm1.778 13.019H3.558V9h3.557v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.728v20.543C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.728C24 .774 23.2 0 22.225 0z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
