@@ -9,7 +9,7 @@ export default function Footer() {
         </p>
         <div className="flex space-x-6">
           <a
-            href="https://wa.me/34692949608"
+            href="https://wa.me/34694201981"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"

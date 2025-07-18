@@ -554,11 +554,11 @@ export default function App() {
               </p>
               <div className="flex justify-center gap-8 flex-wrap">
                 <a
-                  href="https://wa.me/34692949608"
+                  href="https://wa.me/34694201981"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full py-3 px-8 shadow-md transition w-64 justify-center"
-                  aria-label="Contactar por WhatsApp al 692 94 96 08"
+                  aria-label="Contactar por WhatsApp al 694 20 19 81"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -568,7 +568,7 @@ export default function App() {
                   >
                     <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.373 0 0 5.373 0 12c0 2.117.552 4.12 1.6 5.875L0 24l6.375-1.575A11.923 11.923 0 0012 24c6.627 0 12-5.373 12-12 0-3.192-1.247-6.186-3.48-8.52zM12 22.125a10.02 10.02 0 01-5.062-1.39l-.362-.22-3.78.935.978-3.676-.236-.374A9.955 9.955 0 012.025 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.107-7.516c-.264-.132-1.56-.77-1.8-.859-.24-.089-.415-.132-.59.133-.173.264-.668.859-.82 1.036-.15.176-.3.198-.564.066-.264-.132-1.114-.41-2.123-1.312-.785-.698-1.315-1.562-1.47-1.825-.15-.264-.016-.406.116-.537.12-.119.264-.31.396-.465.132-.155.176-.264.264-.44.088-.176.044-.33-.022-.46-.066-.132-.59-1.42-.808-1.943-.213-.51-.43-.44-.59-.448-.152-.007-.33-.008-.505-.008-.176 0-.46.066-.7.33-.24.264-.915.894-.915 2.176 0 1.28.937 2.517 1.068 2.693.132.176 1.846 2.87 4.48 4.025.626.27 1.114.43 1.493.55.627.198 1.197.17 1.65.103.503-.073 1.56-.637 1.78-1.252.22-.615.22-1.143.154-1.252-.066-.11-.24-.176-.503-.308z" />
                   </svg>
-                  692 94 96 08
+                  694 20 19 81
                 </a>
 
                 <a
@@ -602,7 +602,7 @@ export default function App() {
           initial={{ opacity: 0, scale: 0.5, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1 }}
-          href="https://wa.me/34692949608"
+          href="https://wa.me/34694201981"
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 md:hidden"
