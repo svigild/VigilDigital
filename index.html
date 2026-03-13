@@ -1,36 +1,1007 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <title>VigilDigital | Diseño Web y Marketing para Negocios</title>
-<meta name="description" content="Creamos páginas web modernas y gestionamos redes sociales para que tu negocio crezca sin complicaciones. Presupuesto rápido y atención personalizada.">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="index, follow" />
-<meta charset="UTF-8" />
+<html lang="es-ES" class="scroll-smooth scroll-pt-24">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>VigilDigital | Diseño Web para Negocios que Quieren Crecer</title>
+    
+    <!-- Meta SEO Básico -->
+    <meta name="description" content="Diseño web estratégico y SEO para negocios locales. Consigue más clientes, destaca en Google y olvídate de los problemas técnicos con un trato directo.">
+    <meta name="author" content="Sergio Vigil Díaz">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://vigildigital.es/">
+    
+    <!-- NUEVO FAVICON SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230f172a%22/><defs><linearGradient id=%22l%22 x1=%2250%22 y1=%2278%22 x2=%2226%22 y2=%2228%22 gradientUnits=%22userSpaceOnUse%22><stop offset=%220%%22 stop-color=%22%231e40af%22/><stop offset=%22100%%22 stop-color=%22%233b82f6%22/></linearGradient><linearGradient id=%22r%22 x1=%2250%22 y1=%2278%22 x2=%2274%22 y2=%2228%22 gradientUnits=%22userSpaceOnUse%22><stop offset=%220%%22 stop-color=%22%231e40af%22/><stop offset=%2260%%22 stop-color=%22%23059669%22/><stop offset=%22100%%22 stop-color=%22%2310b981%22/></linearGradient></defs><line x1=%2250%22 y1=%2278%22 x2=%2226%22 y2=%2228%22 stroke=%22url(%23l)%22 stroke-width=%2213%22 stroke-linecap=%22round%22/><line x1=%2250%22 y1=%2278%22 x2=%2259.1%22 y2=%2259%22 stroke=%22url(%23r)%22 stroke-width=%2213%22 stroke-linecap=%22round%22/><circle cx=%2266.6%22 cy=%2243.5%22 r=%226.5%22 fill=%22url(%23r)%22/><circle cx=%2274%22 cy=%2228%22 r=%226.5%22 fill=%22url(%23r)%22/></svg>">
+    
+    <!-- Preconexión de Fuentes e Imágenes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <!-- Preload de imagen principal -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000&q=80&auto=format" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Open Graph para compartir en redes -->
-<meta property="og:title" content="VigilDigital | Diseño Web y Marketing" />
-<meta property="og:description" content="Haz crecer tu negocio online con VigilDigital. Páginas web modernas, SEO y redes sociales." />
-<meta property="og:image" content="https://vigildigital.es/static/og-image.jpg" />
-<meta property="og:url" content="https://vigildigital.es" />
-<meta property="og:type" content="website" />
+    <!-- Script de Inicialización Modo Oscuro (Evita el parpadeo blanco) -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="VigilDigital | Diseño Web y Marketing" />
-<meta name="twitter:description" content="Webs modernas y gestión de redes sociales para negocios locales." />
-<meta name="twitter:image" content="https://vigildigital.es/static/og-image.jpg" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // IMPORTANTE: Cambiado a 'class' para controlarlo con el botón
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', // slate-900
+                        secondary: '#2563eb', // blue-600
+                        accent: '#10b981', // emerald-500
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base y soporte para iOS (Safari) */
+        html { -webkit-overflow-scrolling: touch; }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .dark .glass-nav { background: rgba(15, 23, 42, 0.85); border-color: #1e293b; }
+        
+        /* Clases para Animaciones de Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
 
-<link rel="canonical" href="https://vigildigital.es" />
+        /* Custom Scrollbar Premium */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-    <link rel="icon" href="/favicon.ico" />
-    <link href="/src/style.css" rel="stylesheet" />
-    <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
-  rel="stylesheet"
-/>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+        /* Utilidad para equilibrio tipográfico */
+        .text-balance { text-wrap: balance; }
+        section[id] { scroll-margin-top: 5rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased selection:bg-secondary selection:text-white overflow-x-hidden transition-colors duration-300">
+
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-secondary text-white px-4 py-2 z-[60] rounded-lg font-bold shadow-lg">Saltar al contenido principal</a>
+
+    <!-- Navbar -->
+    <header class="fixed w-full top-0 z-50 glass-nav border-b border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300 select-none pt-[env(safe-area-inset-top)]" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Volver al inicio">
+                    <svg class="w-10 h-10 transform group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-blue-500/30 rounded-[10px]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="22" fill="#0f172a" />
+                        <defs>
+                            <linearGradient id="navL" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#1e40af" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                            <linearGradient id="navR" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#1e40af" />
+                                <stop offset="60%" stop-color="#059669" />
+                                <stop offset="100%" stop-color="#10b981" />
+                            </linearGradient>
+                        </defs>
+                        <line x1="50" y1="78" x2="26" y2="28" stroke="url(#navL)" stroke-width="13" stroke-linecap="round" />
+                        <line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#navR)" stroke-width="13" stroke-linecap="round" />
+                        <circle cx="66.6" cy="43.5" r="6.5" fill="url(#navR)" />
+                        <circle cx="74" cy="28" r="6.5" fill="url(#navR)" />
+                    </svg>
+                    <span class="font-extrabold text-2xl tracking-tight text-primary dark:text-white" translate="no">Vigil<span class="text-secondary font-medium dark:text-blue-400">Digital</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                    <a href="#servicios" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">Servicios</a>
+                    <a href="#proceso" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">El Método</a>
+                    <a href="#portfolio" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">Proyectos</a>
+                    <a href="#testimonios" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">Opiniones</a>
+                    <a href="#sobre-mi" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">Sobre mí</a>
+                    <a href="#precios" class="text-slate-600 dark:text-slate-400 hover:text-secondary dark:hover:text-white font-medium transition-colors">Precios</a>
+                    
+                    <!-- Botón Modo Oscuro -->
+                    <button onclick="toggleTheme()" aria-label="Cambiar tema" class="text-slate-500 hover:text-secondary dark:text-slate-400 dark:hover:text-white transition-colors">
+                        <svg id="theme-icon-light" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-icon-dark" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+
+                    <a href="#contacto" class="bg-secondary text-white px-6 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30 hover:-translate-y-0.5">
+                        Hablemos
+                    </a>
+                </nav>
+
+                <!-- Mobile menu & Theme button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <!-- Botón Modo Oscuro (Móvil) -->
+                    <button onclick="toggleTheme()" aria-label="Cambiar tema" class="text-slate-500 hover:text-secondary dark:text-slate-400 dark:hover:text-white transition-colors">
+                        <svg id="theme-icon-light-mobile" class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-icon-dark-mobile" class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+
+                    <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="text-slate-600 dark:text-slate-300 hover:text-primary focus:outline-none transition-transform active:scale-95" aria-label="Abrir menú">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de progreso -->
+        <div class="hidden md:block absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-secondary to-accent w-0 z-50 transition-all duration-75" id="scroll-progress"></div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 absolute w-full shadow-xl origin-top transition-all duration-300 opacity-0 scale-y-95">
+            <div class="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+                <a href="#servicios" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">Servicios</a>
+                <a href="#proceso" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">El Método</a>
+                <a href="#portfolio" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">Proyectos</a>
+                <a href="#testimonios" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">Opiniones</a>
+                <a href="#sobre-mi" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">Sobre mí</a>
+                <a href="#precios" class="block px-3 py-4 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-secondary border-b border-slate-50 dark:border-slate-800">Precios</a>
+                <a href="#contacto" class="block mt-4 text-center bg-secondary text-white px-6 py-4 rounded-xl font-bold shadow-lg shadow-blue-500/20">
+                    Solicitar Presupuesto
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+        <div class="absolute inset-0 z-0">
+            <!-- Decorative blobs -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-100/50 dark:bg-blue-900/20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-emerald-100/40 dark:bg-emerald-900/10 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto reveal active">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-blue-50 dark:bg-blue-900/30 text-secondary dark:text-blue-400 text-xs font-bold tracking-widest border border-blue-100 dark:border-blue-800 mb-8 uppercase">
+                    Especialistas en negocios locales
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-primary dark:text-white leading-[1.1] tracking-tight mb-8 text-balance">
+                    Tu negocio necesita clientes, <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-blue-400">no solo una web</span>
+                </h1>
+                <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed text-balance">
+                    Diseñamos webs estratégicas y rápidas para que dejes de perder ventas frente a tu competencia en Google. Sin jerga técnica.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-5">
+                    <a href="#contacto" onclick="setTimeout(() => document.getElementById('nombre').focus(), 800)" class="bg-secondary text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 hover:-translate-y-1 flex items-center justify-center gap-3">
+                        Analizar mi negocio
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="#portfolio" class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-full font-bold text-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center">
+                        Ver trabajos
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center justify-center gap-3 text-sm font-semibold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-6 py-3 rounded-full border border-amber-200 dark:border-amber-800/50 w-fit mx-auto shadow-sm select-none">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                    </span>
+                    Disponibilidad: Solo acepto 2 nuevos proyectos este mes.
+                </div>
+
+                <div class="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-sm text-slate-500 dark:text-slate-400 font-semibold">
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Diseños para móviles</div>
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Optimizados para Google</div>
+                    <div class="flex items-center gap-2"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Soporte técnico directo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problema / Solución -->
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors border-y border-slate-100 dark:border-slate-800" id="servicios">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-primary dark:text-white mb-6 text-balance">
+                    Por qué el 80% de las webs locales <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-blue-400">no funcionan</span>
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed text-balance">La mayoría de agencias te entregan una web bonita pero vacía. Nosotros creamos herramientas de venta que trabajan por ti 24/7.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-slate-50 dark:bg-slate-800/40 p-10 rounded-3xl border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-2 transition-all group reveal reveal-delay-1">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-secondary dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary dark:text-white mb-4">Diseño Web Premium</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Olvídate de las plantillas genéricas. Creamos una web que refleja la calidad de tu negocio y pensada para que el usuario contacte al instante.</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-800/40 p-10 rounded-3xl border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-2 transition-all group reveal reveal-delay-2">
+                    <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary dark:text-white mb-4">SEO Local</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Optimizamos tu página para que cuando alguien busque tus servicios en tu ciudad, aparezcas por encima de tu competencia en Google.</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-800/40 p-10 rounded-3xl border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:-translate-y-2 transition-all group reveal reveal-delay-3">
+                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/40 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary dark:text-white mb-4">Soporte Técnico</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Tú céntrate en tu negocio, nosotros en la tecnología. Actualizaciones, alojamiento rápido y cambios de texto o fotos incluidos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo Trabajamos (Proceso) -->
+    <section class="py-24 bg-primary dark:bg-slate-950 text-white transition-colors" id="proceso">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-3xl mx-auto reveal">
+                <span class="text-secondary dark:text-blue-400 font-semibold tracking-wider text-sm mb-4 uppercase inline-block">Proceso Garantizado</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-balance">Tu web lista en 3 simples pasos</h2>
+                <p class="text-slate-400 text-lg text-balance">Olvídate de procesos largos y lenguaje técnico.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-800 -z-10 transform -translate-y-1/2 reveal"></div>
+
+                <div class="bg-slate-800/50 dark:bg-slate-900/50 p-10 rounded-3xl border border-slate-700 text-center hover:-translate-y-2 transition-transform duration-300 reveal reveal-delay-1 backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-secondary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-blue-500/30">1</div>
+                    <h3 class="text-2xl font-bold mb-3">Auditoría</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Me cuentas qué hace tu negocio, quiénes son tus clientes y qué objetivo principal quieres lograr.</p>
+                </div>
+
+                <div class="bg-slate-800/50 dark:bg-slate-900/50 p-10 rounded-3xl border border-slate-700 text-center hover:-translate-y-2 transition-transform duration-300 reveal reveal-delay-2 backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-secondary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-blue-500/30">2</div>
+                    <h3 class="text-2xl font-bold mb-3">Construcción</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Me pongo manos a la obra. Diseño una web moderna, redacto textos que venden y la adapto a móviles.</p>
+                </div>
+
+                <div class="bg-slate-800/50 dark:bg-slate-900/50 p-10 rounded-3xl border border-slate-700 text-center hover:-translate-y-2 transition-transform duration-300 reveal reveal-delay-3 backdrop-blur-sm">
+                    <div class="w-16 h-16 bg-secondary text-white rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-blue-500/30">3</div>
+                    <h3 class="text-2xl font-bold mb-3">Lanzamiento</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Activamos tu web, la conectamos a Google y empezamos a captar a tus primeros clientes reales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio B2B - Casos de Éxito Reales -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors" id="portfolio">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 reveal">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl md:text-5xl font-bold text-primary dark:text-white mb-6 text-balance">Casos de Éxito Recientes</h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 text-balance">Soluciones reales que han transformado la presencia de negocios locales.</p>
+                </div>
+                <a href="#contacto" onclick="setTimeout(() => document.getElementById('nombre').focus(), 800)" class="text-secondary dark:text-blue-400 font-bold hover:text-blue-700 dark:hover:text-white flex items-center gap-2 group text-lg transition-colors pb-2">
+                    Quiero resultados así
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700/50 group flex flex-col h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 reveal reveal-delay-1">
+                    <div class="h-64 relative overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80&auto=format" alt="Web Clínica Dental" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700">
+                        <div class="absolute bottom-6 left-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-black text-slate-800 dark:text-white shadow-lg uppercase tracking-widest">Sector Salud</div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-primary dark:text-white mb-3">Clínica Dr. Navarro</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Sincronización de citas en tiempo real y rediseño enfocado en usabilidad móvil.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                            <div class="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                            <span class="text-sm font-bold text-secondary dark:text-blue-400">30% menos llamadas de gestión</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700/50 group flex flex-col h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 reveal reveal-delay-2">
+                    <div class="h-64 relative overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80&auto=format" alt="Web Obrador" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700">
+                        <div class="absolute bottom-6 left-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-black text-slate-800 dark:text-white shadow-lg uppercase tracking-widest">Comercio Local</div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-primary dark:text-white mb-3">Obrador La Espiga</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Catálogo digital visual con integración directa de pedidos por WhatsApp.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                            <div class="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                            <span class="text-sm font-bold text-secondary dark:text-blue-400">Duplicaron pedidos en un mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700/50 group flex flex-col h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 reveal reveal-delay-3">
+                    <div class="h-64 relative overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&q=80&auto=format" alt="Web Taller" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700">
+                        <div class="absolute bottom-6 left-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-black text-slate-800 dark:text-white shadow-lg uppercase tracking-widest">Servicios</div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-primary dark:text-white mb-3">Talleres MotorSur</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Landing page ultrarrápida, optimizada para destacar en mapas locales.</p>
+                        </div>
+                        <div class="pt-6 border-t border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                            <div class="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                            <span class="text-sm font-bold text-secondary dark:text-blue-400">+7 contactos semanales</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios (Prueba Social) -->
+    <section class="py-24 bg-slate-900 dark:bg-slate-950 text-white transition-colors" id="testimonios">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <span class="text-secondary dark:text-blue-400 font-semibold tracking-wider text-sm mb-4 uppercase inline-block">Confianza Local</span>
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-balance text-white">Lo que dicen los negocios que ya han dado el salto</h2>
+                <p class="text-slate-400 text-lg">No te fíes solo de mis palabras. Estos son los resultados de quienes ya trabajan conmigo.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-800 dark:bg-slate-900/80 p-8 rounded-3xl border border-slate-700 dark:border-slate-800 relative reveal-delay-1 shadow-lg">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </div>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"Sergio entendió exactamente lo que necesitaba. Hemos notado un aumento real en las llamadas diarias. Trato de 10."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center font-bold text-white shadow-lg">CM</div>
+                        <div>
+                            <p class="font-bold text-sm">Carlos M.</p>
+                            <p class="text-xs text-slate-400">Sector Salud</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 dark:bg-slate-900/80 p-8 rounded-3xl border border-slate-700 dark:border-slate-800 relative reveal-delay-2 shadow-lg">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </div>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"Huyó de los tecnicismos y nos hizo una web rapidísima. Recomiendo el plan de mantenimiento para olvidarte de todo."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white shadow-lg">LV</div>
+                        <div>
+                            <p class="font-bold text-sm">Laura V.</p>
+                            <p class="text-xs text-slate-400">Comercio Local</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 dark:bg-slate-900/80 p-8 rounded-3xl border border-slate-700 dark:border-slate-800 relative reveal-delay-3 shadow-lg">
+                    <div class="flex gap-1 text-amber-400 mb-6">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </div>
+                    <p class="text-slate-300 italic mb-6 leading-relaxed">"Aparecer de los primeros en Google Maps nos salvó el trimestre. El trato directo te da muchísima confianza."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg">RA</div>
+                        <div>
+                            <p class="font-bold text-sm">Roberto A.</p>
+                            <p class="text-xs text-slate-400">Servicios Locales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Mí -->
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors" id="sobre-mi">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="bg-primary dark:bg-slate-800 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-slate-800/50">
+                <div class="md:w-1/2 p-12 md:p-20 flex flex-col justify-center text-white">
+                    <span class="text-secondary dark:text-blue-400 font-black tracking-[0.2em] text-xs mb-6 uppercase">Tu socio tecnológico</span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">Hola, soy Sergio Vigil Díaz. Hablo tu idioma.</h2>
+                    <p class="text-slate-300 mb-6 text-xl leading-relaxed">No soy una gran agencia con comerciales pesados. Soy un desarrollador freelance independiente con base en España.</p>
+                    <p class="text-slate-300 mb-10 text-xl leading-relaxed">Mi filosofía es honesta: <strong class="text-white">tú conoces tu negocio, yo sé cómo hacerlo brillar en internet.</strong> Sin intermediarios, sin sorpresas, trato 1 a 1 de principio a fin.</p>
+                    <div class="flex flex-wrap gap-6">
+                        <a href="https://wa.me/34694201981?text=Hola%20Sergio,%20estaba%20viendo%20tu%20web%20y%20me%20gustaría%20hacerte%20una%20consulta." target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-secondary px-8 py-4 rounded-full font-bold text-white hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Charlar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <!-- Developer image representation -->
+                <div class="md:w-1/2 bg-slate-800 relative hidden md:block overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000&q=80&auto=format" alt="Entorno de Sergio Vigil Díaz" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Precios Estratégicos -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900/50 transition-colors" id="precios">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 max-w-3xl mx-auto reveal">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-primary dark:text-white mb-6 text-balance">Planes claros. Sin sorpresas.</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400">Elige la modalidad que mejor se adapte al momento actual de tu negocio.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <!-- Plan Suscripción -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-xl shadow-blue-500/10 border-4 border-secondary overflow-hidden relative transform md:-translate-y-6 transition-all reveal reveal-delay-1 group">
+                    <div class="bg-secondary text-white text-xs font-black py-2.5 text-center uppercase tracking-[0.2em]">Más Popular</div>
+                    <div class="p-10">
+                        <h3 class="text-3xl font-black text-primary dark:text-white mb-4">Plan Tranquilidad</h3>
+                        <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm">Tu web profesional siempre al día sin inversión inicial pesada.</p>
+                        <div class="flex items-baseline gap-2 mb-10">
+                            <span class="text-6xl font-black text-primary dark:text-white tracking-tighter">69€</span>
+                            <span class="text-slate-500 font-bold">/mes</span>
+                        </div>
+                        <ul class="space-y-6 mb-10">
+                            <li class="flex items-start gap-4 text-slate-700 dark:text-slate-300 font-medium">
+                                <svg class="w-6 h-6 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Web profesional completa (Multisección)</span>
+                            </li>
+                            <li class="flex items-start gap-4 text-slate-700 dark:text-slate-300 font-medium">
+                                <svg class="w-6 h-6 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span><strong>Dominio y Hosting incluidos</strong></span>
+                            </li>
+                            <li class="flex items-start gap-4 text-slate-700 dark:text-slate-300 font-medium">
+                                <svg class="w-6 h-6 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Soporte técnico y cambios mensuales</span>
+                            </li>
+                        </ul>
+                        <a href="#contacto" onclick="setTimeout(() => document.getElementById('nombre').focus(), 800)" class="block w-full py-5 bg-secondary text-white text-center rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/40 active:scale-95 group-hover:scale-[1.02]">Empezar ahora</a>
+                        <p class="text-center text-[10px] text-slate-400 mt-6 uppercase tracking-widest font-bold">* Sin permanencia oculta. Precios sin IVA.</p>
+                        
+                        <div class="mt-8 flex items-center justify-center gap-3 text-xs font-bold text-slate-500 bg-slate-50 dark:bg-slate-900/50 py-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            PAGO SEGURO Y GARANTÍA
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plan Pago Único -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col hover:shadow-xl transition-all reveal reveal-delay-2 group">
+                    <div class="p-10 h-full flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-3xl font-black text-primary dark:text-white mb-4">Web a Medida</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm">Para negocios que necesitan funcionalidades exclusivas y pago por proyecto.</p>
+                            <div class="flex items-baseline gap-1 mb-10">
+                                <span class="text-slate-500 font-bold">Desde</span>
+                                <span class="text-5xl font-black text-primary dark:text-white tracking-tighter">499€</span>
+                            </div>
+                            <ul class="space-y-6 mb-10">
+                                <li class="flex items-start gap-4 text-slate-600 dark:text-slate-400 font-medium">
+                                    <svg class="w-6 h-6 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>Desarrollo 100% personalizado</span>
+                                </li>
+                                <li class="flex items-start gap-4 text-slate-600 dark:text-slate-400 font-medium">
+                                    <svg class="w-6 h-6 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>Funciones extra (Reservas, CRM, etc.)</span>
+                                </li>
+                                <li class="flex items-start gap-4 text-slate-600 dark:text-slate-400 font-medium">
+                                    <svg class="w-6 h-6 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>SEO avanzado y Analytics</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <a href="#contacto" onclick="setTimeout(() => document.getElementById('nombre').focus(), 800)" class="block w-full py-5 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-white text-center rounded-2xl font-black text-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all active:scale-95 group-hover:scale-[1.02]">Pedir presupuesto</a>
+                            <div class="mt-8 flex items-center justify-center gap-3 text-xs font-bold text-slate-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                PRESUPUESTO SIN COMPROMISO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Garantía -->
+            <div class="mt-12 max-w-3xl mx-auto bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 reveal active transition-colors">
+                <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-800/50 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 mb-1">Garantía de Satisfacción 100%</h4>
+                    <p class="text-sm text-emerald-800 dark:text-emerald-400/80 leading-relaxed">Si no te convence la propuesta de diseño inicial para tu negocio, te devuelvo el dinero. Tu tranquilidad y el éxito de tu empresa son mi prioridad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors" id="faq">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-primary dark:text-white mb-6">Dudas Frecuentes</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400">Todo lo que necesitas saber antes de dar el paso.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <details class="group bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between p-8 cursor-pointer font-bold text-xl text-primary dark:text-white select-none hover:bg-slate-100 dark:hover:bg-slate-800">
+                        ¿El dominio y la web son de mi propiedad?
+                        <span class="text-secondary dark:text-blue-400 transition-transform duration-300 group-open:-rotate-180">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-8 pb-8 text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        Sí, absolutamente. Registramos el dominio a tu nombre y tú eres el dueño absoluto de todo el contenido. Mi labor es ayudarte a que funcione, pero la propiedad es 100% tuya.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 2 -->
+                <details class="group bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between p-8 cursor-pointer font-bold text-xl text-primary dark:text-white select-none hover:bg-slate-100 dark:hover:bg-slate-800">
+                        ¿Hay algún compromiso de permanencia en el plan mensual?
+                        <span class="text-secondary dark:text-blue-400 transition-transform duration-300 group-open:-rotate-180">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-8 pb-8 text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        No. En VigilDigital creemos en la calidad del servicio, no en las ataduras. Puedes darte de baja en cualquier momento. Sin preguntas incómodas.
+                    </div>
+                </details>
+
+                <!-- FAQ Item 3 -->
+                <details class="group bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between p-8 cursor-pointer font-bold text-xl text-primary dark:text-white select-none hover:bg-slate-100 dark:hover:bg-slate-800">
+                        No tengo ni idea de tecnología, ¿podré usar mi web?
+                        <span class="text-secondary dark:text-blue-400 transition-transform duration-300 group-open:-rotate-180">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="px-8 pb-8 text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        Ese es precisamente mi trabajo. Tú no tienes que tocar ni una línea de código. Cualquier cambio que necesites (nuevo producto, foto, horario), me escribes y yo lo hago por ti.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final / Contacto -->
+    <section class="py-24 bg-primary dark:bg-slate-950 text-white transition-colors" id="contacto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight text-white">¿Damos el paso hacia tu éxito digital?</h2>
+                    <p class="text-slate-300 text-2xl mb-12 max-w-md">Escríbeme sin compromiso. Analizaré tu caso y te daré mi visión profesional para hacer crecer tu negocio.</p>
+                    
+                    <div class="space-y-10">
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-secondary transition-all">
+                                <svg class="w-6 h-6 text-secondary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400 uppercase font-black tracking-widest">WhatsApp Directo</p>
+                                <p class="font-bold text-2xl text-white"><a href="tel:+34694201981" class="hover:text-secondary transition-colors select-none">694 20 19 81</a></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div class="w-14 h-14 bg-slate-800 rounded-full flex items-center justify-center group-hover:bg-secondary transition-all">
+                                <svg class="w-6 h-6 text-secondary group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400 uppercase font-black tracking-widest">Email profesional</p>
+                                <p class="font-bold text-2xl text-white"><a href="mailto:info@vigildigital.es" class="hover:text-secondary transition-colors select-none">info@vigildigital.es</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-[3rem] p-10 shadow-2xl text-slate-800 dark:text-slate-200">
+                    <h3 class="text-2xl font-bold mb-6 text-primary dark:text-white">Solicita información</h3>
+                    <form action="#" method="POST" class="space-y-6" onsubmit="event.preventDefault(); const btn = document.getElementById('submit-btn'); const text = document.getElementById('btn-text'); const spinner = document.getElementById('btn-spinner'); btn.disabled = true; text.textContent = 'Enviando...'; spinner.classList.remove('hidden'); setTimeout(() => { document.getElementById('form-success').classList.remove('hidden'); this.reset(); btn.disabled = false; text.textContent = 'Enviar Mensaje'; spinner.classList.add('hidden'); setTimeout(() => document.getElementById('form-success').classList.add('hidden'), 6000); }, 1500);">
+                        
+                        <!-- Honeypot -->
+                        <div class="hidden" aria-hidden="true"><input type="text" id="bot_field" name="bot_field" tabindex="-1" autocomplete="off"></div>
+
+                        <div>
+                            <label for="nombre" class="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Tu nombre</label>
+                            <input type="text" id="nombre" name="nombre" autocomplete="name" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:bg-slate-700 dark:border-slate-600 focus:ring-4 focus:ring-secondary/20 focus:border-secondary outline-none transition-all dark:text-white dark:placeholder-slate-400" placeholder="Nombre completo" required>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Email</label>
+                                <input type="email" id="email" name="email" autocomplete="email" inputmode="email" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:bg-slate-700 dark:border-slate-600 focus:ring-4 focus:ring-secondary/20 outline-none transition-all dark:text-white dark:placeholder-slate-400" placeholder="tu@email.com" required>
+                            </div>
+                            <div>
+                                <label for="telefono" class="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="tel" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:bg-slate-700 dark:border-slate-600 focus:ring-4 focus:ring-secondary/20 outline-none transition-all dark:text-white dark:placeholder-slate-400" placeholder="Ej. 600 000 000">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="negocio" class="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Tu negocio</label>
+                            <input type="text" id="negocio" name="negocio" autocomplete="organization" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:bg-slate-700 dark:border-slate-600 focus:ring-4 focus:ring-secondary/20 outline-none transition-all dark:text-white dark:placeholder-slate-400" placeholder="Ej. Clínica Dental..." required>
+                        </div>
+                        <div>
+                            <label for="mensaje" class="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">¿Cómo te ayudo?</label>
+                            <textarea id="mensaje" name="mensaje" rows="4" minlength="20" maxlength="1000" class="w-full px-5 py-4 rounded-2xl border border-slate-200 dark:bg-slate-700 dark:border-slate-600 focus:ring-4 focus:ring-secondary/20 outline-none transition-all resize-none dark:text-white dark:placeholder-slate-400" placeholder="Cuéntame brevemente qué necesitas..." required></textarea>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-700">
+                            <div class="flex items-center h-5 mt-1">
+                                <input id="privacidad" name="privacidad" type="checkbox" required class="w-5 h-5 rounded border-slate-300 text-secondary focus:ring-secondary cursor-pointer dark:bg-slate-700 dark:border-slate-600">
+                            </div>
+                            <label for="privacidad" class="text-xs text-slate-500 dark:text-slate-400 font-medium cursor-pointer leading-relaxed">
+                                Acepto la <button type="button" onclick="openLegalModal('privacidad', 'Política de Privacidad')" class="text-secondary dark:text-blue-400 hover:underline">política de privacidad</button>. Tus datos están seguros.
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-5 bg-secondary text-white rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] disabled:opacity-75 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+                            <span id="btn-text">Enviar Mensaje</span>
+                            <svg id="btn-spinner" class="w-6 h-6 animate-spin hidden" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        </button>
+                        
+                        <div id="form-success" class="hidden p-5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-2xl text-center font-bold border border-emerald-100 dark:border-emerald-800 flex items-center justify-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            ¡Mensaje enviado con éxito!
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 dark:bg-slate-950 border-t border-slate-800 py-16 text-center transition-colors">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- LOGO FOOTER -->
+            <div class="flex items-center justify-center gap-3 mb-10 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Volver al inicio">
+                <svg class="w-12 h-12 transform group-hover:scale-105 transition-transform duration-300 shadow-xl shadow-blue-500/20 rounded-xl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="22" fill="#0f172a" />
+                    <defs>
+                        <linearGradient id="footL" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1e40af" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                        <linearGradient id="footR" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1e40af" />
+                            <stop offset="60%" stop-color="#059669" />
+                            <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                    </defs>
+                    <line x1="50" y1="78" x2="26" y2="28" stroke="url(#footL)" stroke-width="13" stroke-linecap="round" />
+                    <line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#footR)" stroke-width="13" stroke-linecap="round" />
+                    <circle cx="66.6" cy="43.5" r="6.5" fill="url(#footR)" />
+                    <circle cx="74" cy="28" r="6.5" fill="url(#footR)" />
+                </svg>
+                <span class="font-black text-3xl tracking-tight text-white" translate="no">Vigil<span class="text-secondary font-medium">Digital</span></span>
+            </div>
+            
+            <!-- Legal Links -->
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 mb-10 text-sm font-bold uppercase tracking-widest text-slate-400">
+                <button type="button" onclick="openLegalModal('aviso', 'Aviso Legal')" class="hover:text-white transition-colors focus:outline-none">Aviso Legal</button>
+                <button type="button" onclick="openLegalModal('privacidad', 'Política de Privacidad')" class="hover:text-white transition-colors focus:outline-none">Privacidad</button>
+                <button type="button" onclick="openLegalModal('cookies', 'Política de Cookies')" class="hover:text-white transition-colors focus:outline-none">Cookies</button>
+            </div>
+
+            <p class="text-slate-500 text-xs font-medium leading-relaxed max-w-md mx-auto">
+                &copy; <span id="current-year"></span> VigilDigital. Diseñando para negocios reales.<br>
+                Hecho con pasión en España por Sergio Vigil Díaz.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Botón Fijo Inferior (Solo para Móvil) -->
+    <div id="mobile-sticky-cta" class="md:hidden fixed bottom-0 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-4 z-[45] flex justify-center shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.1)] dark:shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.5)] pb-[calc(1rem+env(safe-area-inset-bottom))] transition-colors">
+        <a href="#contacto" onclick="setTimeout(() => document.getElementById('nombre').focus(), 800)" class="w-full bg-secondary text-white text-center py-3.5 rounded-xl font-bold text-[15px] shadow-lg flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95 transition-all">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            Pedir Presupuesto Gratis
+        </a>
+    </div>
+
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/34694201981?text=Hola%20Sergio,%20estaba%20viendo%20tu%20web%20y%20me%20gustaría%20hacerte%20una%20consulta." target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" class="fixed bottom-[calc(6rem+env(safe-area-inset-bottom))] md:bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20bd5a] hover:-translate-y-1 transition-all duration-300 z-50 flex items-center justify-center group">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- Banner de Cookies Obligatorio -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full md:w-auto md:left-6 md:bottom-6 md:rounded-2xl bg-slate-900 dark:bg-slate-800 border-t md:border border-slate-700 dark:border-slate-700 text-slate-300 p-4 sm:p-6 pb-[calc(1rem+env(safe-area-inset-bottom))] md:pb-6 z-[90] transform translate-y-full md:translate-y-24 transition-all duration-500 shadow-[0_-10px_40px_rgba(0,0,0,0.3)] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-center sm:text-left leading-relaxed">
+            Utilizamos cookies propias y de terceros para mejorar la experiencia. Al continuar, consideramos que aceptas su uso.
+        </p>
+        <div class="flex items-center gap-3 flex-shrink-0">
+            <button onclick="openLegalModal('cookies', 'Política de Cookies')" class="text-sm font-medium hover:text-white transition-colors underline underline-offset-2">Saber más</button>
+            <button onclick="acceptCookies()" class="bg-secondary text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Modal Dinámico de Textos Legales (Vista SPA) -->
+    <div id="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title" class="fixed inset-0 z-[100] bg-slate-900/50 dark:bg-slate-900/80 hidden flex-col transition-opacity duration-300 opacity-0 overflow-hidden items-center justify-center p-4 backdrop-blur-sm">
+        <!-- Contenedor blanco central -->
+        <div class="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300 border border-slate-200 dark:border-slate-800" id="legal-modal-container">
+            <!-- Cabecera del Modal -->
+            <div class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-6 flex justify-between items-center z-10">
+                <div class="flex items-center gap-3">
+                    <svg class="w-8 h-8 rounded-lg shadow-sm" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="22" fill="#0f172a" />
+                        <defs>
+                            <linearGradient id="modL" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#1e40af" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                            <linearGradient id="modR" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#1e40af" />
+                                <stop offset="60%" stop-color="#059669" />
+                                <stop offset="100%" stop-color="#10b981" />
+                            </linearGradient>
+                        </defs>
+                        <line x1="50" y1="78" x2="26" y2="28" stroke="url(#modL)" stroke-width="13" stroke-linecap="round" />
+                        <line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#modR)" stroke-width="13" stroke-linecap="round" />
+                        <circle cx="66.6" cy="43.5" r="6.5" fill="url(#modR)" />
+                        <circle cx="74" cy="28" r="6.5" fill="url(#modR)" />
+                    </svg>
+                    <h2 id="legal-modal-title" class="font-bold text-xl text-primary dark:text-white uppercase tracking-tight">Título Legal</h2>
+                </div>
+                <button onclick="closeLegalModal()" class="w-10 h-10 flex items-center justify-center bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-full text-slate-700 dark:text-slate-300 transition-colors focus:outline-none" aria-label="Cerrar ventana legal">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <!-- Contenedor inyectable de texto -->
+            <div class="p-8 md:p-12 overflow-y-auto flex-grow">
+                <div id="legal-modal-content" class="space-y-6 text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed">
+                    <!-- El contenido se inyecta vía JS aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedores Ocultos con los Textos Legales -->
+    <div class="hidden">
+        <div id="content-aviso">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mt-2 mb-4">1. Datos Identificativos</h3>
+            <p>En cumplimiento con el deber de información, a continuación se reflejan los siguientes datos: el titular de este sitio web es Sergio Vigil Díaz (en adelante VigilDigital), desarrollador web freelance operando 100% online en España. Correo electrónico de contacto: info@vigildigital.es.</p>
+            <p class="mt-4 p-4 bg-slate-100 dark:bg-slate-800 rounded-xl border-l-4 border-secondary italic text-sm text-slate-500 dark:text-slate-400">Nota legal: Este sitio web actúa como plataforma de exhibición. Los datos fiscales completos (DNI y dirección fiscal) se facilitarán de forma privada al cliente en el presupuesto formal y factura correspondiente.</p>
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mt-8 mb-4">2. Propiedad Intelectual</h3>
+            <p>Sergio Vigil Díaz es titular de todos los derechos de propiedad intelectual e industrial de su página web.</p>
+        </div>
+        <div id="content-privacidad">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mt-2 mb-4">Privacidad y Protección de Datos</h3>
+            <p>Responsable: Sergio Vigil Díaz. Finalidad: Responder a tu consulta comercial. Los datos que nos facilitas solo se utilizarán para gestionar tu presupuesto. Nunca venderemos tus datos ni te enviaremos spam.</p>
+            <p>Tienes derecho a acceder, rectificar o eliminar tus datos enviando un email a info@vigildigital.es.</p>
+        </div>
+        <div id="content-cookies">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mt-2 mb-4">Uso de Cookies</h3>
+            <p>Esta web utiliza cookies técnicas (imprescindibles para que todo funcione) y cookies analíticas de carácter anónimo para entender cómo se usa el sitio y mejorar la experiencia.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Lógica de Modo Oscuro Manual
+        function updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            // Desktop
+            document.getElementById('theme-icon-dark').classList.toggle('hidden', isDark);
+            document.getElementById('theme-icon-light').classList.toggle('hidden', !isDark);
+            // Mobile
+            document.getElementById('theme-icon-dark-mobile').classList.toggle('hidden', isDark);
+            document.getElementById('theme-icon-light-mobile').classList.toggle('hidden', !isDark);
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+            updateThemeIcon();
+        }
+
+        // Lógica de Modales Legales
+        const legalModal = document.getElementById('legal-modal');
+        const legalModalContainer = document.getElementById('legal-modal-container');
+        const legalModalTitle = document.getElementById('legal-modal-title');
+        const legalModalContent = document.getElementById('legal-modal-content');
+
+        window.openLegalModal = function(type, title) {
+            const contentHTML = document.getElementById('content-' + type).innerHTML;
+            legalModalTitle.textContent = title;
+            legalModalContent.innerHTML = contentHTML;
+            
+            legalModal.classList.remove('hidden');
+            legalModal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; 
+            
+            setTimeout(() => {
+                legalModal.classList.remove('opacity-0');
+                legalModal.classList.add('opacity-100');
+                legalModalContainer.classList.remove('scale-95');
+                legalModalContainer.classList.add('scale-100');
+            }, 10);
+        }
+
+        window.closeLegalModal = function() {
+            legalModal.classList.remove('opacity-100');
+            legalModal.classList.add('opacity-0');
+            legalModalContainer.classList.remove('scale-100');
+            legalModalContainer.classList.add('scale-95');
+            document.body.style.overflow = ''; 
+            
+            setTimeout(() => {
+                legalModal.classList.add('hidden');
+                legalModal.classList.remove('flex');
+            }, 300);
+        }
+
+        legalModal.addEventListener('click', function(e) {
+            if (e.target === legalModal) {
+                closeLegalModal();
+            }
+        });
+
+        // Lógica del Banner de Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        
+        window.acceptCookies = function() {
+            localStorage.setItem('vigildigital_cookies', 'accepted');
+            cookieBanner.classList.add('translate-y-full');
+            cookieBanner.classList.add('md:translate-y-24');
+            setTimeout(() => { cookieBanner.classList.add('hidden'); }, 500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeIcon(); // Sincroniza el icono al cargar
+
+            if (!localStorage.getItem('vigildigital_cookies')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                    cookieBanner.classList.remove('md:translate-y-24');
+                }, 1500);
+            }
+
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { root: null, threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]:not([href="#contacto"])');
+
+            function highlightNav() {
+                let scrollY = window.scrollY;
+                sections.forEach(current => {
+                    const sectionHeight = current.offsetHeight;
+                    const sectionTop = current.offsetTop - 150;
+                    const sectionId = current.getAttribute('id');
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-secondary', 'font-bold', 'dark:text-white');
+                            link.classList.add('text-slate-600', 'font-medium', 'dark:text-slate-400');
+                            if(link.getAttribute('href') === '#' + sectionId) {
+                                link.classList.remove('text-slate-600', 'font-medium', 'dark:text-slate-400');
+                                link.classList.add('text-secondary', 'font-bold', 'dark:text-white');
+                            }
+                        });
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', highlightNav);
+            highlightNav();
+
+            const progressBar = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            });
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            const navbar = document.getElementById('navbar');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const isMenuOpen = !menu.classList.contains('hidden');
+
+                if (currentScrollY > 10) {
+                    navbar.classList.add('shadow-md');
+                    navbar.classList.remove('shadow-sm');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('shadow-sm');
+                }
+
+                if (!isMenuOpen) {
+                    if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                        navbar.style.transform = 'translateY(-100%)';
+                    } else {
+                        navbar.style.transform = 'translateY(0)';
+                    }
+                }
+                lastScrollY = currentScrollY;
+            });
+
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            btn.addEventListener('click', () => {
+                const isHidden = menu.classList.contains('hidden');
+                if (isHidden) {
+                    menu.classList.remove('hidden');
+                    btn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => {
+                        menu.classList.remove('opacity-0', 'scale-y-95');
+                        menu.classList.add('opacity-100', 'scale-y-100');
+                    }, 10);
+                } else {
+                    menu.classList.remove('opacity-100', 'scale-y-100');
+                    menu.classList.add('opacity-0', 'scale-y-95');
+                    btn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        menu.classList.add('hidden');
+                    }, 300);
+                }
+            });
+
+            const mobileLinks = menu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('opacity-100', 'scale-y-100');
+                    menu.classList.add('opacity-0', 'scale-y-95');
+                    btn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                    setTimeout(() => {
+                        menu.classList.add('hidden');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
 </html>
