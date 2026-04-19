@@ -11,7 +11,7 @@
 <meta property="og:description" content="Tu web hecha a medida, con trato personal y resultados reales. Sin intermediarios.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vigildigital.es/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f172a'/%3E%3Cdefs%3E%3ClinearGradient id='l' x1='50' y1='78' x2='26' y2='28' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%231e40af'/%3E%3Cstop offset='100%25' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3ClinearGradient id='r' x1='50' y1='78' x2='74' y2='28' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%231e40af'/%3E%3Cstop offset='60%25' stop-color='%23059669'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cline x1='50' y1='78' x2='26' y2='28' stroke='url(%23l)' stroke-width='13' stroke-linecap='round'/%3E%3Cline x1='50' y1='78' x2='59.1' y2='59' stroke='url(%23r)' stroke-width='13' stroke-linecap='round'/%3E%3Ccircle cx='66.6' cy='43.5' r='6.5' fill='url(%23r)'/%3E%3Ccircle cx='74' cy='28' r='6.5' fill='url(%23r)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,9 +24,9 @@
   --card:#0f1c30;
   --border:rgba(255,255,255,0.07);
   --blue:#3b82f6;
-  --cyan:#06b6d4;
-  --green:#10b981;
-  --violet:#8b5cf6;
+  --cyan:#10b981;
+  --green:#059669;
+  --violet:#1e40af;
   --text:#f1f5f9;
   --muted:#94a3b8;
   --muted2:#64748b;
@@ -91,9 +91,9 @@ nav.scrolled{background:rgba(5,10,20,.88);backdrop-filter:blur(24px);-webkit-bac
 .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);animation:orbDrift linear infinite}
 .orb-1{width:750px;height:750px;background:radial-gradient(circle at center,rgba(59,130,246,.55) 0%,transparent 70%);top:-250px;right:-150px;animation-duration:24s}
-.orb-2{width:600px;height:600px;background:radial-gradient(circle at center,rgba(139,92,246,.45) 0%,transparent 70%);bottom:-150px;left:-150px;animation-duration:20s;animation-delay:-7s}
-.orb-3{width:400px;height:400px;background:radial-gradient(circle at center,rgba(6,182,212,.4) 0%,transparent 70%);top:40%;left:35%;animation-duration:28s;animation-delay:-14s}
-.orb-4{width:250px;height:250px;background:radial-gradient(circle at center,rgba(16,185,129,.3) 0%,transparent 70%);top:20%;left:60%;animation-duration:16s;animation-delay:-4s}
+.orb-2{width:600px;height:600px;background:radial-gradient(circle at center,rgba(16,185,129,.4) 0%,transparent 70%);bottom:-150px;left:-150px;animation-duration:20s;animation-delay:-7s}
+.orb-3{width:400px;height:400px;background:radial-gradient(circle at center,rgba(5,150,105,.35) 0%,transparent 70%);top:40%;left:35%;animation-duration:28s;animation-delay:-14s}
+.orb-4{width:250px;height:250px;background:radial-gradient(circle at center,rgba(59,130,246,.3) 0%,transparent 70%);top:20%;left:60%;animation-duration:16s;animation-delay:-4s}
 @keyframes orbDrift{
   0%,100%{transform:translate(0,0) scale(1)}
   20%{transform:translate(40px,-70px) scale(1.07)}
@@ -119,7 +119,7 @@ nav.scrolled{background:rgba(5,10,20,.88);backdrop-filter:blur(24px);-webkit-bac
 
 /* Hero title */
 .hero-title{font-size:clamp(2.6rem,5.8vw,4.2rem);font-weight:900;line-height:1.08;letter-spacing:-.03em}
-.hero-title .hl{display:inline;background:linear-gradient(120deg,#60a5fa,var(--cyan) 50%,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:shimmer 5s linear infinite}
+.hero-title .hl{display:inline;background:linear-gradient(120deg,#60a5fa,var(--cyan) 50%,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:shimmer 5s linear infinite}
 @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
 
 .hero-sub{font-size:1.12rem;color:var(--muted);line-height:1.78;max-width:490px}
@@ -170,7 +170,7 @@ nav.scrolled{background:rgba(5,10,20,.88);backdrop-filter:blur(24px);-webkit-bac
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .profile-card{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;padding:2.25rem;position:relative;overflow:hidden}
 .profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet))}
-.avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;margin-bottom:1.1rem;box-shadow:0 0 24px rgba(59,130,246,.3)}
+.avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;margin-bottom:1.1rem;box-shadow:0 0 0 3px rgba(59,130,246,.4),0 0 24px rgba(59,130,246,.25);display:block}
 .profile-card h3{font-size:1.25rem;font-weight:800;margin-bottom:.5rem}
 .profile-card p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:1.5rem}
 .profile-quote{background:rgba(255,255,255,.03);border-left:3px solid var(--blue);border-radius:0 .5rem .5rem 0;padding:.9rem 1.1rem;font-size:.88rem;color:var(--muted);font-style:italic;line-height:1.7;margin-bottom:1.5rem}
@@ -182,7 +182,7 @@ nav.scrolled{background:rgba(5,10,20,.88);backdrop-filter:blur(24px);-webkit-bac
 .ico-b{background:rgba(59,130,246,.13)}
 .ico-c{background:rgba(6,182,212,.13)}
 .ico-g{background:rgba(16,185,129,.13)}
-.ico-v{background:rgba(139,92,246,.13)}
+.ico-v{background:rgba(16,185,129,.13)}
 .feat-body h4{font-size:.93rem;font-weight:700;margin-bottom:.22rem}
 .feat-body p{font-size:.84rem;color:var(--muted);line-height:1.65}
 
@@ -368,12 +368,22 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3.5rem 0 
   <div class="container">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">
-        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <defs><linearGradient id="nlg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
-          <rect width="32" height="32" rx="8" fill="url(#nlg)"/>
-          <text x="16" y="22" font-size="18" font-family="Arial,sans-serif" font-weight="900" fill="white" text-anchor="middle">V</text>
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <rect width="100" height="100" rx="22" fill="#0f172a"/>
+          <defs>
+            <linearGradient id="nlL" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/>
+            </linearGradient>
+            <linearGradient id="nlR" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1e40af"/><stop offset="60%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+          </defs>
+          <line x1="50" y1="78" x2="26" y2="28" stroke="url(#nlL)" stroke-width="13" stroke-linecap="round"/>
+          <line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#nlR)" stroke-width="13" stroke-linecap="round"/>
+          <circle cx="66.6" cy="43.5" r="6.5" fill="url(#nlR)"/>
+          <circle cx="74" cy="28" r="6.5" fill="url(#nlR)"/>
         </svg>
-        VigilDigital
+        Vigil<span style="color:var(--cyan);font-weight:500">Digital</span>
       </a>
       <ul class="nav-links">
         <li><a href="#porque">Por qué yo</a></li>
@@ -507,7 +517,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3.5rem 0 
 
       <div class="reveal">
         <div class="profile-card">
-          <div class="avatar">S</div>
+          <img src="sergio.png" alt="Sergio Vigil Díaz — VigilDigital" class="avatar">
           <h3>Hola, soy Sergio</h3>
           <p>Soy la persona que diseña tu web, te atiende las dudas y soluciona cualquier incidencia. No hay intermediarios ni equipos rotativos. Solo tú y yo, trabajando juntos desde el primer día.</p>
           <div class="profile-quote">"Mi prioridad no es entregarte una web bonita, sino una web que le traiga clientes reales a tu negocio."</div>
@@ -845,12 +855,22 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3.5rem 0 
     <div class="footer-top">
       <div class="fb-brand">
         <div class="f-logo">
-          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <defs><linearGradient id="flg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
-            <rect width="32" height="32" rx="8" fill="url(#flg)"/>
-            <text x="16" y="22" font-size="18" font-family="Arial,sans-serif" font-weight="900" fill="white" text-anchor="middle">V</text>
+          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <rect width="100" height="100" rx="22" fill="#0f172a"/>
+            <defs>
+              <linearGradient id="flL" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/>
+              </linearGradient>
+              <linearGradient id="flR" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1e40af"/><stop offset="60%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+            </defs>
+            <line x1="50" y1="78" x2="26" y2="28" stroke="url(#flL)" stroke-width="13" stroke-linecap="round"/>
+            <line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#flR)" stroke-width="13" stroke-linecap="round"/>
+            <circle cx="66.6" cy="43.5" r="6.5" fill="url(#flR)"/>
+            <circle cx="74" cy="28" r="6.5" fill="url(#flR)"/>
           </svg>
-          VigilDigital
+          Vigil<span style="color:var(--cyan);font-weight:500">Digital</span>
         </div>
         <p class="f-tagline">Diseño web profesional con trato cercano y personalizado. Tu web, tu negocio, tu voz online.</p>
         <div class="f-social">
