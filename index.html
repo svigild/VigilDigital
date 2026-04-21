@@ -19,25 +19,41 @@
   <meta name="twitter:description" content="Hablas directamente con Sergio, sin intermediarios. Webs que traen clientes reales." />
   <meta name="twitter:image" content="https://vigildigital.es/assets/contacto.png" />
   <meta name="theme-color" content="#090d1a" />
+  <link rel="canonical" href="https://vigildigital.es/" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f172a'/%3E%3Cdefs%3E%3ClinearGradient id='fl' x1='50' y1='78' x2='26' y2='28' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%231e40af'/%3E%3Cstop offset='100%25' stop-color='%233b82f6'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='50' y1='78' x2='74' y2='28' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%231e40af'/%3E%3Cstop offset='60%25' stop-color='%23059669'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cline x1='50' y1='78' x2='26' y2='28' stroke='url(%23fl)' stroke-width='13' stroke-linecap='round'/%3E%3Cline x1='50' y1='78' x2='59.1' y2='59' stroke='url(%23fr)' stroke-width='13' stroke-linecap='round'/%3E%3Ccircle cx='66.6' cy='43.5' r='6.5' fill='url(%23fr)'/%3E%3Ccircle cx='74' cy='28' r='6.5' fill='url(%23fr)'/%3E%3C/svg%3E" />
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js"></script>
   <!-- Twemoji: emojis consistentes (estilo Apple) en todos los SO -->
   <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"LocalBusiness","name":"VigilDigital","description":"Diseño web profesional con trato 100% personalizado en Asturias","founder":{"@type":"Person","name":"Sergio Vigil Díaz"},"areaServed":{"@type":"Place","name":"Asturias, España"},"telephone":"+34694201981","email":"info@vigildigital.es","sameAs":["https://www.facebook.com/people/VigilDigital/61576959064306/","https://www.instagram.com/vigildigital/"]}
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "VigilDigital",
+    "url": "https://vigildigital.es",
+    "description": "Diseño web profesional con trato 100% personalizado en Asturias",
+    "founder": {"@type":"Person","name":"Sergio Vigil Díaz"},
+    "address": {"@type":"PostalAddress","addressRegion":"Asturias","addressCountry":"ES"},
+    "areaServed": {"@type":"Place","name":"Asturias, España"},
+    "telephone": "+34694201981",
+    "email": "info@vigildigital.es",
+    "priceRange": "€€",
+    "image": "https://vigildigital.es/assets/contacto.png",
+    "sameAs": ["https://www.facebook.com/people/VigilDigital/61576959064306/","https://www.instagram.com/vigildigital/"]
+  }
   </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body { background: #090d1a; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
     /* ── Twemoji: tamaño y alineación correctos en todos los contextos ── */
@@ -238,6 +254,10 @@
     /* ── Fade-up ── */
     .fu { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .fu.vis { opacity: 1; transform: translateY(0); }
+    .fu.vis.d1 { transition-delay: 0.08s; }
+    .fu.vis.d2 { transition-delay: 0.16s; }
+    .fu.vis.d3 { transition-delay: 0.24s; }
+    .fu.vis.d4 { transition-delay: 0.32s; }
     @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
     /* ── Pulse badge ── */
@@ -315,6 +335,7 @@
     @media (max-width: 768px) {
       .sect { padding: 72px 20px; }
       #ck-banner { flex-direction: column; align-items: flex-start; padding: 18px 20px; }
+      .hero-content { padding: 0 20px !important; }
     }
   </style>
 </head>
@@ -323,7 +344,7 @@
 <div id="scroll-bar"></div>
 
 <!-- Floating WhatsApp -->
-<a href="https://wa.me/34694201981" target="_blank" rel="noopener" class="fab" aria-label="WhatsApp">
+<a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" class="fab" aria-label="WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.119 1.535 5.854L.057 23.18a.75.75 0 00.923.923l5.326-1.478A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.93 0-3.74-.522-5.29-1.433l-.38-.225-3.24.9.9-3.24-.225-.38A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
 </a>
 
@@ -380,18 +401,48 @@ const SLUGS = { 'Por qué yo':'por-que-yo', 'Servicios':'servicios', 'Precios':'
 const Nav = () => {
   const [sc, setSc] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('');
+
   useEffect(() => {
-    const fn = () => setSc(window.scrollY > 50);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
+    // Scroll fondo nav + scroll-spy sección activa
+    const onScroll = () => {
+      setSc(window.scrollY > 50);
+      // Detectar qué sección está en viewport
+      const ids = Object.values(SLUGS);
+      let current = '';
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 120) current = id;
+      }
+      setActive(current);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
-  const slugs = SLUGS;
+
   return (
     <nav className={sc ? 'sc' : ''} style={{ position:'fixed', top:0, left:0, right:0, zIndex:100, padding:'22px 40px', display:'flex', alignItems:'center', justifyContent:'space-between', transition:'background 0.3s, border-color 0.3s' }}>
       <Logo />
       <div className="hidden md:flex" style={{ gap:32, alignItems:'center' }}>
-        {NAV.map(l => <a key={l} href={`#${slugs[l]}`} className="nav-link" style={{ fontFamily:'Inter,sans-serif', fontSize:13, fontWeight:500, letterSpacing:'0.06em', textDecoration:'none' }}>{l}</a>)}
-        <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-nav-glass"><WaIcon />WhatsApp</a>
+        {NAV.map(l => {
+          const slug = SLUGS[l];
+          const isActive = active === slug;
+          return (
+            <a key={l} href={`#${slug}`}
+              className="nav-link"
+              style={{
+                fontFamily:'Inter,sans-serif', fontSize:13, fontWeight: isActive ? 700 : 500,
+                letterSpacing:'0.06em', textDecoration:'none',
+                color: isActive ? '#5b72f7' : 'rgba(255,255,255,0.65)',
+                position:'relative', transition:'color 0.2s',
+              }}
+            >
+              {l}
+              {isActive && <span style={{ position:'absolute', bottom:-6, left:0, right:0, height:2, background:'linear-gradient(90deg,#5b72f7,#10d4a0)', borderRadius:2 }}/>}
+            </a>
+          );
+        })}
+        <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-nav-glass"><WaIcon />WhatsApp</a>
       </div>
       <button className="md:hidden" onClick={() => setOpen(o=>!o)} style={{ background:'none', border:'none', color:'#fff', cursor:'pointer', padding:4 }}>
         {open
@@ -400,8 +451,8 @@ const Nav = () => {
       </button>
       <div className={`mobile-menu ${open?'visible-menu':'hidden-menu'}`} style={{ position:'fixed', inset:0, zIndex:200, background:'rgba(9,13,26,0.97)', backdropFilter:'blur(28px)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:36 }}>
         <button onClick={() => setOpen(false)} style={{ position:'absolute', top:24, right:24, background:'none', border:'none', color:'#fff', cursor:'pointer' }}><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-        {NAV.map(l => <a key={l} href={`#${slugs[l]}`} onClick={() => setOpen(false)} style={{ fontFamily:'Inter,sans-serif', fontSize:26, fontWeight:700, color:'rgba(255,255,255,0.7)', textDecoration:'none', letterSpacing:'0.04em' }} onMouseEnter={e=>e.target.style.color='#5b72f7'} onMouseLeave={e=>e.target.style.color='rgba(255,255,255,0.7)'}>{l}</a>)}
-        <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-glass" style={{ gap:8 }} onClick={() => setOpen(false)}><WaIcon />WhatsApp</a>
+        {NAV.map(l => <a key={l} href={`#${SLUGS[l]}`} onClick={() => setOpen(false)} style={{ fontFamily:'Inter,sans-serif', fontSize:26, fontWeight:700, color: active===SLUGS[l] ? '#5b72f7' : 'rgba(255,255,255,0.7)', textDecoration:'none', letterSpacing:'0.04em', transition:'color 0.2s' }}>{l}</a>)}
+        <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-glass" style={{ gap:8 }} onClick={() => setOpen(false)}><WaIcon />WhatsApp</a>
       </div>
     </nav>
   );
@@ -440,7 +491,7 @@ const Hero = () => (
     <div style={{ position:'absolute', top:'18%', right:'8%', width:380, height:280, borderRadius:'50%', background:'radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%)', filter:'blur(40px)', zIndex:1, pointerEvents:'none' }}/>
 
     {/* Content */}
-    <div style={{ position:'relative', zIndex:10, minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 40px', maxWidth:900 }}>
+    <div className="hero-content" style={{ position:'relative', zIndex:10, minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 40px', maxWidth:900 }}>
       <div style={{ fontFamily:'Plus Jakarta Sans,sans-serif', fontWeight:700, fontSize:11, letterSpacing:'0.14em', textTransform:'uppercase', color:'#5b72f7', marginBottom:16 }}>Diseño Web Profesional · Asturias</div>
       <h1 style={{ fontFamily:'Inter,sans-serif', fontWeight:900, fontSize:'clamp(40px,6vw,72px)', letterSpacing:'-0.03em', textTransform:'uppercase', color:'#fff', lineHeight:1.0, marginBottom:24 }}>
         Tu negocio merece<br />una web que trabaje<span style={{ color:'#5b72f7' }}>.</span>
@@ -449,7 +500,7 @@ const Hero = () => (
         Diseño webs profesionales con trato completamente personalizado. Hablas directamente conmigo, sin intermediarios, desde el primer mensaje hasta la entrega.
       </p>
       <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-        <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-glass">Quiero mi web <ArrowRight size={15} /></a>
+        <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-glass">Quiero mi web <ArrowRight size={15} /></a>
       </div>
     </div>
   </div>
@@ -465,7 +516,7 @@ const Stats = () => (
   }}>
     <div style={{ maxWidth:1200, margin:'0 auto', padding:'36px 40px', display:'flex', gap:0, flexWrap:'wrap' }}>
       {[['40+','webs creadas'],['100%','trato personal'],['<24h','tiempo de respuesta'],['0','intermediarios']].map(([v,l],i,arr) => (
-        <div key={v} style={{ flex:1, minWidth:140, padding:'0 32px', borderRight: i<arr.length-1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+        <div key={v} className={`fu d${i+1}`} style={{ flex:1, minWidth:140, padding:'0 32px', borderRight: i<arr.length-1 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
           <div className="gtext" style={{ fontSize:36, fontWeight:900, letterSpacing:'-0.04em' }}>{v}</div>
           <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginTop:4, letterSpacing:'0.04em' }}>{l}</div>
         </div>
@@ -488,7 +539,8 @@ const WhyMe = () => (
 
       {/* Right — content */}
       <div style={{ flex:1, minWidth:260 }}>
-        <h2 className="fu" style={{ fontFamily:'Inter,sans-serif', fontWeight:900, fontSize:'clamp(32px,3.8vw,58px)', lineHeight:1.05, letterSpacing:'-0.04em', color:'#fff', marginBottom:56 }}>
+        <div className="sect-label fu">Por qué yo</div>
+        <h2 className="fu" style={{ fontFamily:'Inter,sans-serif', fontWeight:900, fontSize:'clamp(32px,3.8vw,58px)', lineHeight:1.05, letterSpacing:'-0.04em', color:'#fff', marginBottom:56, marginTop:14 }}>
           Un solo interlocutor,<br />siempre yo.
         </h2>
 
@@ -809,7 +861,7 @@ const HowItWorks = () => {
 
         {/* ── Bottom CTA ── */}
         <div className="fu" style={{ textAlign:'center', marginTop:52 }}>
-          <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-glass" style={{ gap:9 }}>
+          <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-glass" style={{ gap:9 }}>
             Empezar ahora — es gratis <ArrowRight size={14}/>
           </a>
         </div>
@@ -946,7 +998,7 @@ const Pricing = () => (
 
           {/* Render */}
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center', height:210, marginTop:20 }}>
-            <img className="render-img" src="assets/tranquilidad.png" alt="Plan Tranquilidad" style={{ height:195, objectFit:'contain', filter:'drop-shadow(0 18px 36px rgba(91,114,247,0.32))', animation:'prFloat 7s ease-in-out infinite', transition:'filter 0.35s ease' }}/>
+            <img className="render-img" src="assets/tranquilidad.png" alt="Plan Tranquilidad" loading="lazy" style={{ height:195, objectFit:'contain', filter:'drop-shadow(0 18px 36px rgba(91,114,247,0.32))', animation:'prFloat 7s ease-in-out infinite', transition:'filter 0.35s ease' }}/>
           </div>
 
           {/* Main content */}
@@ -986,7 +1038,7 @@ const Pricing = () => (
             </ul>
 
             {/* CTA */}
-            <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-glass" style={{ justifyContent:'center', fontSize:14, padding:'15px 0', letterSpacing:'0.05em', width:'100%' }}>
+            <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-glass" style={{ justifyContent:'center', fontSize:14, padding:'15px 0', letterSpacing:'0.05em', width:'100%' }}>
               Empezar ahora →
             </a>
             <div style={{ textAlign:'center', marginTop:11, fontSize:11, color:'rgba(255,255,255,0.25)' }}>
@@ -1009,7 +1061,7 @@ const Pricing = () => (
 
           {/* Render */}
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center', height:210, marginTop:20 }}>
-            <img className="render-img" src="assets/amedida.png" alt="Web a Medida" style={{ height:195, objectFit:'contain', filter:'drop-shadow(0 18px 36px rgba(16,212,160,0.28))', animation:'prFloat2 7s ease-in-out infinite 1.2s', transition:'filter 0.35s ease' }}/>
+            <img className="render-img" src="assets/amedida.png" alt="Web a Medida" loading="lazy" style={{ height:195, objectFit:'contain', filter:'drop-shadow(0 18px 36px rgba(16,212,160,0.28))', animation:'prFloat2 7s ease-in-out infinite 1.2s', transition:'filter 0.35s ease' }}/>
           </div>
 
           {/* Main content */}
@@ -1071,7 +1123,7 @@ const Pricing = () => (
             </div>
 
             {/* CTA */}
-            <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-teal">
+            <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-teal">
               Quiero mi web ahora →
             </a>
             <div style={{ textAlign:'center', marginTop:11, fontSize:11, color:'rgba(255,255,255,0.25)' }}>
@@ -1140,17 +1192,6 @@ const FAQ = () => {
 const Contact = () => {
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'sent' | 'error'
 
-  // Re-aplicar Twemoji cuando cambia el estado (✉️ ⚠️ se renderizan después del mount inicial)
-  useEffect(() => {
-    if(typeof twemoji !== 'undefined') {
-      twemoji.parse(document.body, {
-        folder: 'svg', ext: '.svg',
-        base: 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/',
-        className: 'emoji',
-      });
-    }
-  }, [status]);
-
   const submit = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -1188,6 +1229,7 @@ const Contact = () => {
           <img
             src="assets/contacto.png"
             alt="Workspace VigilDigital"
+            loading="lazy"
             style={{ width:'100%', height:'100%', objectFit:'cover', display:'block', position:'absolute', inset:0 }}
           />
           {/* Gradiente oscuro inferior */}
@@ -1202,12 +1244,12 @@ const Contact = () => {
             <h2 style={{ fontFamily:'Inter,sans-serif', fontWeight:800, fontSize:28, color:'#fff', margin:'0 0 10px', letterSpacing:'-0.02em', lineHeight:1.2 }}>¿Hablamos?</h2>
             <p style={{ fontSize:13.5, color:'rgba(255,255,255,0.52)', lineHeight:1.65, margin:'0 0 22px' }}>Sin compromisos. Cuéntame tu proyecto y te respondo en menos de 24 horas.</p>
             <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-              <a href="https://wa.me/34694201981" target="_blank" rel="noopener" className="btn-glass" style={{ alignSelf:'flex-start', gap:8 }}>
+              <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" className="btn-glass" style={{ alignSelf:'flex-start', gap:8 }}>
                 <WaIcon size={15}/>WhatsApp · +34 694 201 981
               </a>
               <div style={{ display:'flex', gap:8 }}>
-                <a href="https://www.facebook.com/people/VigilDigital/61576959064306/" target="_blank" rel="noopener" className="btn-ghost" style={{ padding:'9px 16px', fontSize:13, display:'flex', alignItems:'center', gap:7 }}><FbIcon/>Facebook</a>
-                <a href="https://www.instagram.com/vigildigital/" target="_blank" rel="noopener" className="btn-ghost" style={{ padding:'9px 16px', fontSize:13, display:'flex', alignItems:'center', gap:7 }}><IgIcon/>Instagram</a>
+                <a href="https://www.facebook.com/people/VigilDigital/61576959064306/" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ padding:'9px 16px', fontSize:13, display:'flex', alignItems:'center', gap:7 }}><FbIcon/>Facebook</a>
+                <a href="https://www.instagram.com/vigildigital/" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ padding:'9px 16px', fontSize:13, display:'flex', alignItems:'center', gap:7 }}><IgIcon/>Instagram</a>
               </div>
             </div>
           </div>
@@ -1255,8 +1297,8 @@ const Contact = () => {
           {(status === 'idle' || status === 'loading') && (
             <form
               onSubmit={submit}
-              className="s-card fu"
-              style={{ padding:'28px 24px', display:'flex', flexDirection:'column', gap:12 }}
+              className="s-card"
+              style={{ padding:'28px 24px', display:'flex', flexDirection:'column', gap:12, animation:'fadeInUp 0.45s ease both' }}
             >
               {/* Campos ocultos FormSubmit */}
               <input type="hidden" name="_captcha"  value="false"/>
@@ -1269,6 +1311,7 @@ const Contact = () => {
                 className="field"
                 name="name"
                 placeholder="Tu nombre"
+                autoComplete="name"
                 required
                 disabled={status === 'loading'}
               />
@@ -1277,6 +1320,7 @@ const Contact = () => {
                 name="email"
                 type="email"
                 placeholder="Tu email"
+                autoComplete="email"
                 required
                 disabled={status === 'loading'}
               />
@@ -1284,6 +1328,7 @@ const Contact = () => {
                 className="field"
                 name="business"
                 placeholder="Tu negocio (opcional)"
+                autoComplete="organization"
                 disabled={status === 'loading'}
               />
               <textarea
@@ -1329,7 +1374,7 @@ const Footer = () => (
               { href:'https://www.instagram.com/vigildigital/', icon:<IgIcon/> },
               { href:'https://wa.me/34694201981', icon:<WaIcon size={15}/> },
             ].map(({ href, icon }) => (
-              <a key={href} href={href} target="_blank" rel="noopener"
+              <a key={href} href={href} target="_blank" rel="noopener noreferrer"
                 style={{ width:34, height:34, borderRadius:8, background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.08)', display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(255,255,255,0.45)', transition:'all 0.2s', textDecoration:'none' }}
                 onMouseEnter={e=>{e.currentTarget.style.background='rgba(91,114,247,0.14)';e.currentTarget.style.color='#5b72f7';e.currentTarget.style.borderColor='rgba(91,114,247,0.35)';}}
                 onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.06)';e.currentTarget.style.color='rgba(255,255,255,0.45)';e.currentTarget.style.borderColor='rgba(255,255,255,0.08)';}}
@@ -1372,16 +1417,41 @@ const App = () => {
     document.querySelectorAll('.fu').forEach(el => io.observe(el));
     // Cookie banner
     if(localStorage.getItem('vd_ck')) document.getElementById('ck-banner').classList.add('gone');
-    // ── Twemoji: reemplaza todos los emojis con imágenes SVG (Apple-style, consistente en Windows/Android/macOS) ──
-    if(typeof twemoji !== 'undefined') {
-      twemoji.parse(document.body, {
-        folder: 'svg',
-        ext: '.svg',
-        base: 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/',
-        className: 'emoji',
-      });
-    }
-    return () => window.removeEventListener('scroll', onScroll);
+
+    // ── Twemoji: fuerza emojis estilo Apple en todos los sistemas operativos ──
+    const twCfg = {
+      folder: 'svg', ext: '.svg',
+      base: 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/',
+      className: 'emoji',
+    };
+    const applyTwemoji = () => {
+      if (typeof twemoji !== 'undefined') twemoji.parse(document.body, twCfg);
+    };
+
+    // Pasada inicial
+    applyTwemoji();
+
+    // MutationObserver: re-aplica cada vez que React modifica el DOM
+    // (re-renders del nav, FAQ, formulario, etc.)
+    let twTimer;
+    const mo = new MutationObserver(mutations => {
+      // Ignorar mutaciones causadas por el propio Twemoji (inserta <img class="emoji">)
+      const relevant = mutations.some(m =>
+        Array.from(m.addedNodes).some(n => !(n.nodeName === 'IMG' && n.className === 'emoji'))
+      );
+      if (relevant) {
+        clearTimeout(twTimer);
+        twTimer = setTimeout(applyTwemoji, 80);
+      }
+    });
+    const root = document.getElementById('root');
+    if (root) mo.observe(root, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      mo.disconnect();
+      clearTimeout(twTimer);
+    };
   }, []);
 
   return <>
