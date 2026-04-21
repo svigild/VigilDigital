@@ -1424,28 +1424,27 @@ const App = () => {
       base: 'https://cdn.jsdelivr.net/npm/twemoji@14.0.2/assets/',
       className: 'emoji',
     };
+
+    // Desconectar observer → parsear → reconectar evita el bucle infinito
+    let twTimer;
+    let mo;
     const applyTwemoji = () => {
-      if (typeof twemoji !== 'undefined') twemoji.parse(document.body, twCfg);
+      if (typeof twemoji === 'undefined') return;
+      mo.disconnect();                          // pausa: ignora los cambios de Twemoji
+      twemoji.parse(document.body, twCfg);
+      setTimeout(() => {                        // reconecta cuando el DOM ya está estable
+        const root = document.getElementById('root');
+        if (root) mo.observe(root, { childList: true, subtree: true });
+      }, 50);
     };
 
-    // Pasada inicial
-    applyTwemoji();
-
-    // MutationObserver: re-aplica cada vez que React modifica el DOM
-    // (re-renders del nav, FAQ, formulario, etc.)
-    let twTimer;
-    const mo = new MutationObserver(mutations => {
-      // Ignorar mutaciones causadas por el propio Twemoji (inserta <img class="emoji">)
-      const relevant = mutations.some(m =>
-        Array.from(m.addedNodes).some(n => !(n.nodeName === 'IMG' && n.className === 'emoji'))
-      );
-      if (relevant) {
-        clearTimeout(twTimer);
-        twTimer = setTimeout(applyTwemoji, 80);
-      }
+    mo = new MutationObserver(() => {
+      clearTimeout(twTimer);
+      twTimer = setTimeout(applyTwemoji, 120);  // debounce: espera a que React termine
     });
-    const root = document.getElementById('root');
-    if (root) mo.observe(root, { childList: true, subtree: true });
+
+    // Pasada inicial + arrancar observer
+    applyTwemoji();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
