@@ -113,9 +113,10 @@ app.get('/api/diagnostico', async (req, res) => {
   if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
   try { new URL(target); } catch { return res.status(400).json({ error: 'URL no válida' }); }
 
+  const key = process.env.PAGESPEED_API_KEY ? `&key=${process.env.PAGESPEED_API_KEY}` : '';
   const apiUrl = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed' +
     `?url=${encodeURIComponent(target)}` +
-    '&strategy=mobile&category=performance&category=accessibility&category=best-practices&category=seo';
+    `&strategy=mobile&category=performance&category=accessibility&category=best-practices&category=seo${key}`;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 55000);
