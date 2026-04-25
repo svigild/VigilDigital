@@ -169,6 +169,7 @@
       z-index: -1;
     }
     @keyframes btnShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes prShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
     .btn-glass:hover {
       transform: translateY(-4px); /* Se eleva */
       box-shadow: 
@@ -673,7 +674,7 @@
 <div id="scroll-bar"></div>
 
 <div id="ck-banner">
-  <span>Usamos cookies propias para mejorar tu experiencia. <a href="#" style="color:#5b72f7">Política de privacidad</a></span>
+  <span>Usamos cookies propias para mejorar tu experiencia. <a href="/privacidad" style="color:#5b72f7">Política de privacidad</a></span>
   <div style="display:flex;gap:10px;flex-shrink:0">
     <button onclick="document.getElementById('ck-banner').classList.add('gone');localStorage.setItem('vd_ck','1')" class="btn-glass" style="font-size:12px;padding:8px 18px;letter-spacing:0.05em">Aceptar</button>
     <button onclick="document.getElementById('ck-banner').classList.add('gone')" style="background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.4);border-radius:999px;padding:8px 16px;font-size:12px;cursor:pointer">Rechazar</button>
@@ -681,7 +682,7 @@
 </div>
 
 <nav id="main-nav">
-  <a href="#" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+  <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
     <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="100" height="100" rx="22" fill="#0f172a"/>
       <defs>
@@ -1045,21 +1046,9 @@
           "link": "#"
         },
         {
-          "category": "RESTAURACIÓN",
-          "title": "Restaurante El Rincón",
-          "image": "assets/portfolio-2.jpg",
-          "link": "#"
-        },
-        {
-          "category": "SERVICIOS",
-          "title": "Clínica Dental Sonrisa",
-          "image": "assets/portfolio-3.jpg",
-          "link": "#"
-        },
-        {
-          "category": "INMOBILIARIA",
-          "title": "Asturias Propiedades",
-          "image": "assets/portfolio-4.jpg",
+          "category": "DEPORTES",
+          "title": "Tienda de Tenis",
+          "image": "assets/deportivu-1777106566872.jpeg",
           "link": "#"
         }
       ]
@@ -1191,7 +1180,7 @@
     <div class="fu" style="display:flex; justify-content:center; align-items:center; gap:8px; flex-wrap:wrap; margin-top:52px;">
       <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>🔒</span><span>Pago seguro</span></div><span style="color:rgba(255,255,255,0.12); font-size:16px;">·</span>
       <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>🤝</span><span>Trato 100% personal</span></div><span style="color:rgba(255,255,255,0.12); font-size:16px;">·</span>
-      <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>⭐</span><span>40+ webs entregadas</span></div><span style="color:rgba(255,255,255,0.12); font-size:16px;">·</span>
+      <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>⭐</span><span>Satisfacción garantizada</span></div><span style="color:rgba(255,255,255,0.12); font-size:16px;">·</span>
       <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>↩️</span><span>Devolución garantizada</span></div><span style="color:rgba(255,255,255,0.12); font-size:16px;">·</span>
       <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,0.32);"><span>🇪🇸</span><span>Hecho en Asturias</span></div>
     </div>
@@ -1424,8 +1413,9 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(({ posts }) => {
         if (!posts || !posts.length) { el.closest('#blog-preview').style.display = 'none'; return; }
-        if (posts.length === 1 && posts[0].category.toLowerCase() === 'otro') { el.closest('#blog-preview').style.display = 'none'; return; }
-        const p  = posts[0];
+        const realPosts = posts.filter(p => p.category.toLowerCase() !== 'otro');
+        if (!realPosts.length) { el.closest('#blog-preview').style.display = 'none'; return; }
+        const p  = realPosts[0];
         const rt = p.readTime || Math.max(1, Math.ceil((p.content||'').split(' ').length / 200));
         const dateStr = new Date(p.date).toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' });
         el.innerHTML = `
