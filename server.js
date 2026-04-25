@@ -104,6 +104,63 @@ app.post('/api/upload', requireAdmin, upload.single('image'), (req, res) => {
   res.json({ url: `assets/${req.file.filename}` });
 });
 
+// ── Diagnóstico API ───────────────────────────────────────────────────────────
+app.get('/api/diagnostico', async (req, res) => {
+  const { url } = req.query;
+  if (!url) return res.status(400).json({ error: 'URL requerida' });
+
+  let target = url.trim();
+  if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
+  try { new URL(target); } catch { return res.status(400).json({ error: 'URL no válida' }); }
+
+  const apiUrl = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed' +
+    `?url=${encodeURIComponent(target)}` +
+    '&strategy=mobile&category=performance&category=accessibility&category=best-practices&category=seo';
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 55000);
+
+  try {
+    const r = await fetch(apiUrl, { signal: controller.signal });
+    clearTimeout(timer);
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      return res.status(502).json({ error: err?.error?.message || 'No se pudo acceder a la web. Comprueba la URL.' });
+    }
+    const data   = await r.json();
+    const cats   = data.lighthouseResult?.categories || {};
+    const audits = data.lighthouseResult?.audits     || {};
+    const sc = (k)  => Math.round((cats[k]?.score ?? 0) * 100);
+    const au = (id) => audits[id];
+
+    res.json({
+      url: target,
+      performance:   sc('performance'),
+      seo:           sc('seo'),
+      accessibility: sc('accessibility'),
+      bestPractices: sc('best-practices'),
+      fcp: au('first-contentful-paint')?.displayValue   || null,
+      lcp: au('largest-contentful-paint')?.displayValue || null,
+      cls: au('cumulative-layout-shift')?.displayValue  || null,
+      tbt: au('total-blocking-time')?.displayValue      || null,
+      hasSSL:             target.startsWith('https://'),
+      hasMetaDescription: au('meta-description')?.score === 1,
+      hasViewport:        au('viewport')?.score         === 1,
+      hasTitle:           au('document-title')?.score   === 1,
+      issues: ['uses-optimized-images','render-blocking-resources','unused-javascript',
+               'unused-css-rules','uses-text-compression','offscreen-images',
+               'uses-responsive-images','dom-size']
+        .filter(id => au(id)?.score != null && au(id).score < 0.9)
+        .map(id => ({ title: au(id).title }))
+        .slice(0, 6),
+    });
+  } catch (err) {
+    clearTimeout(timer);
+    if (err.name === 'AbortError') return res.status(504).json({ error: 'El análisis tardó demasiado. Inténtalo de nuevo.' });
+    res.status(500).json({ error: 'Error al analizar la web' });
+  }
+});
+
 // ── Rutas de páginas ──────────────────────────────────────────────────────────
 const page = (f) => (req, res) => res.sendFile(path.join(__dirname, 'public', f));
 app.get('/blog',         page('blog.html'));
@@ -112,6 +169,7 @@ app.get('/admin',        page('admin.html'));
 app.get('/aviso-legal',  page('aviso-legal.html'));
 app.get('/privacidad',   page('privacidad.html'));
 app.get('/cookies',      page('cookies.html'));
+app.get('/diagnostico',  page('diagnostico.html'));
 
 app.listen(port, () =>
   console.log(`\n  VigilDigital corriendo en http://localhost:${port}\n  Admin: http://localhost:${port}/admin\n`)
