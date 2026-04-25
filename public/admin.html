@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — VigilDigital</title>
+  <link rel="stylesheet" href="/css/vigil.css">
+  <!-- EasyMDE Markdown editor -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+  <style>
+    body { background: #060818; }
+
+    /* ── Auth screen ──────────────────────────────────────────────────────── */
+    #auth-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    .auth-card {
+      background: #07091c; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px; padding: 48px 40px; max-width: 420px; width: 100%;
+      text-align: center; box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .auth-icon {
+      width: 64px; height: 64px; border-radius: 20px; margin: 0 auto 24px;
+      background: rgba(91,114,247,0.12); border: 1px solid rgba(91,114,247,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .auth-card h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .auth-card p  { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
+    .auth-input {
+      width: 100%; padding: 14px 18px; border-radius: 12px; font-size: 15px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);
+      color: #fff; outline: none; transition: border-color 0.2s; font-family: 'Inter', sans-serif;
+      text-align: center; letter-spacing: 0.05em;
+    }
+    .auth-input:focus { border-color: rgba(91,114,247,0.5); }
+    .auth-error { color: #f87171; font-size: 13px; margin-top: 12px; display: none; }
+
+    /* ── Admin layout ─────────────────────────────────────────────────────── */
+    #admin-app { display: none; }
+    .admin-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(6,8,24,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-logo { display: flex; align-items: center; gap: 12px; }
+    .admin-logo-text { font-weight: 800; font-size: 17px; }
+    .admin-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(91,114,247,0.15); color: #5b72f7; border: 1px solid rgba(91,114,247,0.25);
+      padding: 3px 10px; border-radius: 999px;
+    }
+    .admin-content { max-width: 1100px; margin: 0 auto; padding: 48px 40px 96px; }
+
+    /* ── Tabs ─────────────────────────────────────────────────────────────── */
+    .tabs { display: flex; gap: 4px; margin-bottom: 40px; }
+    .tab-btn {
+      font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 12px;
+      border: none; background: transparent; color: rgba(255,255,255,0.4); cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active { background: rgba(91,114,247,0.12); color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Section header ───────────────────────────────────────────────────── */
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;
+    }
+    .section-head h2 { font-size: 20px; font-weight: 800; }
+
+    /* ── Portfolio grid (admin) ───────────────────────────────────────────── */
+    .admin-portfolio-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+    }
+    .admin-portfolio-card {
+      background: #07091c; border: 1px solid rgba(255,255,255,0.07); border-radius: 18px;
+      overflow: hidden; position: relative;
+    }
+    .admin-portfolio-img {
+      aspect-ratio: 4/3; background: linear-gradient(135deg, #0d1030, #1a1f4e);
+      position: relative; overflow: hidden;
+    }
+    .admin-portfolio-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .admin-portfolio-img-placeholder {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    }
+    .admin-portfolio-img-placeholder svg { opacity: 0.15; }
+    .admin-portfolio-body { padding: 16px; }
+    .admin-portfolio-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #5b72f7; margin-bottom: 4px; }
+    .admin-portfolio-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+    .admin-card-actions { display: flex; gap: 8px; }
+
+    /* ── Posts list ──────────────────────────────────────────────────────── */
+    .posts-list { display: flex; flex-direction: column; gap: 12px; }
+    .post-row {
+      background: #07091c; border: 1px solid rgba(255,255,255,0.07); border-radius: 16px;
+      padding: 20px 24px; display: flex; align-items: center; gap: 20px;
+    }
+    .post-row-cover {
+      width: 72px; height: 52px; border-radius: 10px; flex-shrink: 0; overflow: hidden;
+      background: linear-gradient(135deg, #0d1030, #1a1f4e);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .post-row-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .post-row-info { flex: 1; min-width: 0; }
+    .post-row-cat { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #5b72f7; margin-bottom: 3px; }
+    .post-row-title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .post-row-date { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 3px; }
+    .post-row-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+    /* ── Buttons (admin) ─────────────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      color: #fff; background: #5b72f7; border: none; border-radius: 10px;
+      padding: 10px 18px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #4a61e6; transform: translateY(-1px); }
+    .btn-sm {
+      font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s;
+    }
+    .btn-sm:hover { border-color: rgba(91,114,247,0.4); color: #5b72f7; background: rgba(91,114,247,0.08); }
+    .btn-danger { border-color: rgba(248,113,113,0.3); color: rgba(248,113,113,0.7); }
+    .btn-danger:hover { background: rgba(248,113,113,0.08); border-color: rgba(248,113,113,0.5); color: #f87171; }
+
+    /* ── Modal ───────────────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(5,7,20,0.85); backdrop-filter: blur(16px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 32px 20px; overflow-y: auto;
+      opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.25s, visibility 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .modal {
+      background: #07091c; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 40px; width: 100%; max-width: 700px;
+      transform: translateY(20px); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+      margin: auto;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+    .modal-title { font-size: 20px; font-weight: 800; }
+    .modal-close {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center;
+      justify-content: center; cursor: pointer; color: rgba(255,255,255,0.5); transition: all 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    /* ── Form ────────────────────────────────────────────────────────────── */
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);
+      color: #fff; font-size: 14px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(91,114,247,0.5); }
+    .form-select option { background: #07091c; }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-hint { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 6px; }
+    .form-footer { display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; }
+
+    /* EasyMDE overrides */
+    .EasyMDEContainer .CodeMirror {
+      background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.85); border-radius: 0 0 10px 10px;
+    }
+    .EasyMDEContainer .editor-toolbar {
+      background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10);
+      border-radius: 10px 10px 0 0;
+    }
+    .EasyMDEContainer .editor-toolbar button { color: rgba(255,255,255,0.5); }
+    .EasyMDEContainer .editor-toolbar button:hover, .EasyMDEContainer .editor-toolbar button.active { color: #5b72f7; background: rgba(91,114,247,0.1); }
+    .EasyMDEContainer .editor-toolbar i.separator { border-color: rgba(255,255,255,0.1); }
+    .editor-preview { background: #060818; color: rgba(255,255,255,0.8); }
+
+    /* Upload area */
+    .upload-area {
+      border: 2px dashed rgba(255,255,255,0.12); border-radius: 12px;
+      padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.2s;
+    }
+    .upload-area:hover { border-color: rgba(91,114,247,0.4); }
+    .upload-area input { display: none; }
+    .upload-area p { font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 8px; }
+    .upload-preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 12px; display: none; }
+
+    /* Slug auto */
+    #post-slug { font-family: monospace; letter-spacing: 0.02em; }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 32px; right: 32px; z-index: 999;
+      background: #1a1f4e; border: 1px solid rgba(91,114,247,0.3); border-radius: 12px;
+      padding: 14px 20px; font-size: 14px; font-weight: 500;
+      transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.error { background: #2d0e0e; border-color: rgba(248,113,113,0.3); }
+
+    @media (max-width: 767px) {
+      .admin-header { padding: 0 20px; }
+      .admin-content { padding: 32px 20px 72px; }
+      .form-row { grid-template-columns: 1fr; }
+      .post-row { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5b72f7" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    </div>
+    <h1>Panel de Admin</h1>
+    <p>Introduce tu clave para acceder</p>
+    <input type="password" id="auth-input" class="auth-input" placeholder="••••••••••••" autocomplete="off">
+    <p class="auth-error" id="auth-error">Clave incorrecta. Inténtalo de nuevo.</p>
+    <button class="btn-primary" style="width:100%;justify-content:center;margin-top:20px;padding:14px;" onclick="doAuth()">Entrar</button>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-app">
+  <header class="admin-header">
+    <div class="admin-logo">
+      <svg width="28" height="28" viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="22" fill="#0f172a"/><defs><linearGradient id="al" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient><linearGradient id="ar" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e40af"/><stop offset="60%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs><line x1="50" y1="78" x2="26" y2="28" stroke="url(#al)" stroke-width="13" stroke-linecap="round"/><line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#ar)" stroke-width="13" stroke-linecap="round"/><circle cx="66.6" cy="43.5" r="6.5" fill="url(#ar)"/><circle cx="74" cy="28" r="6.5" fill="url(#ar)"/></svg>
+      <span class="admin-logo-text">VigilDigital</span>
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <a href="/" target="_blank" class="btn-sm">Ver web →</a>
+      <button class="btn-sm btn-danger" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <div class="admin-content">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('portfolio')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Portfolio
+      </button>
+      <button class="tab-btn" onclick="switchTab('blog')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Blog
+      </button>
+    </div>
+
+    <!-- PORTFOLIO TAB -->
+    <div class="tab-panel active" id="tab-portfolio">
+      <div class="section-head">
+        <h2>Proyectos del portfolio</h2>
+        <button class="btn-primary" onclick="openPortfolioModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Añadir proyecto
+        </button>
+      </div>
+      <div class="admin-portfolio-grid" id="portfolio-list">
+        <p style="color:rgba(255,255,255,0.3);font-size:14px;">Cargando…</p>
+      </div>
+    </div>
+
+    <!-- BLOG TAB -->
+    <div class="tab-panel" id="tab-blog">
+      <div class="section-head">
+        <h2>Artículos del blog</h2>
+        <button class="btn-primary" onclick="openPostModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Nuevo artículo
+        </button>
+      </div>
+      <div class="posts-list" id="posts-list">
+        <p style="color:rgba(255,255,255,0.3);font-size:14px;">Cargando…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO MODAL -->
+<div class="modal-overlay" id="portfolio-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="portfolio-modal-title">Nuevo proyecto</span>
+      <button class="modal-close" onclick="closeModal('portfolio-modal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <input type="text" id="p-category" class="form-input" placeholder="E-COMMERCE">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Título del proyecto</label>
+        <input type="text" id="p-title" class="form-input" placeholder="Nombre del proyecto">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Imagen</label>
+      <div class="upload-area" onclick="document.getElementById('p-img-file').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <p>Haz clic para subir imagen (o escribe la ruta abajo)</p>
+        <input type="file" id="p-img-file" accept="image/*" onchange="uploadImage(this,'p-image','p-img-preview')">
+        <img id="p-img-preview" class="upload-preview">
+      </div>
+      <input type="text" id="p-image" class="form-input" style="margin-top:10px;" placeholder="assets/mi-imagen.jpg">
+      <p class="form-hint">Ruta relativa desde la carpeta public/</p>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Imagen thumbnail (opcional, para carga rápida)</label>
+      <input type="text" id="p-thumbnail" class="form-input" placeholder="assets/mi-imagen-thumb.jpg">
+    </div>
+    <div class="form-group">
+      <label class="form-label">URL del proyecto</label>
+      <input type="text" id="p-link" class="form-input" placeholder="https://ejemplo.com o #">
+    </div>
+    <input type="hidden" id="p-editing-id">
+    <div class="form-footer">
+      <button class="btn-sm" onclick="closeModal('portfolio-modal')">Cancelar</button>
+      <button class="btn-primary" onclick="savePortfolioItem()">Guardar proyecto</button>
+    </div>
+  </div>
+</div>
+
+<!-- POST MODAL -->
+<div class="modal-overlay" id="post-modal">
+  <div class="modal" style="max-width:800px;">
+    <div class="modal-header">
+      <span class="modal-title" id="post-modal-title">Nuevo artículo</span>
+      <button class="modal-close" onclick="closeModal('post-modal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Título</label>
+      <input type="text" id="post-title" class="form-input" placeholder="Título del artículo" oninput="autoSlug()">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Slug (URL)</label>
+        <input type="text" id="post-slug" class="form-input" placeholder="titulo-del-articulo">
+        <p class="form-hint">Se genera automáticamente. No uses espacios ni caracteres especiales.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <input type="text" id="post-category" class="form-input" placeholder="Diseño Web, SEO…">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Extracto (resumen corto)</label>
+      <textarea id="post-excerpt" class="form-textarea" rows="2" placeholder="Breve descripción que aparece en la lista del blog…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Imagen de portada</label>
+      <div class="upload-area" onclick="document.getElementById('post-img-file').click()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <p>Haz clic para subir portada (o escribe la ruta abajo)</p>
+        <input type="file" id="post-img-file" accept="image/*" onchange="uploadImage(this,'post-cover','post-img-preview')">
+        <img id="post-img-preview" class="upload-preview">
+      </div>
+      <input type="text" id="post-cover" class="form-input" style="margin-top:10px;" placeholder="assets/portada.jpg">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Contenido (Markdown)</label>
+      <textarea id="post-content"></textarea>
+    </div>
+    <input type="hidden" id="post-editing-slug">
+    <div class="form-footer">
+      <button class="btn-sm" onclick="closeModal('post-modal')">Cancelar</button>
+      <button class="btn-primary" onclick="savePost()">Publicar artículo</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+  // ── Auth ──────────────────────────────────────────────────────────────────
+  let adminKey = sessionStorage.getItem('vd_admin_key') || '';
+
+  async function doAuth() {
+    const input = document.getElementById('auth-input');
+    const key   = input.value.trim();
+    const res   = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key }) });
+    const { ok } = await res.json();
+    if (ok) {
+      adminKey = key;
+      sessionStorage.setItem('vd_admin_key', key);
+      showApp();
+    } else {
+      document.getElementById('auth-error').style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  document.getElementById('auth-input').addEventListener('keydown', e => { if (e.key === 'Enter') doAuth(); });
+
+  function logout() {
+    sessionStorage.removeItem('vd_admin_key');
+    adminKey = '';
+    document.getElementById('admin-app').style.display = 'none';
+    document.getElementById('auth-screen').style.display = 'flex';
+  }
+
+  function showApp() {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('admin-app').style.display = 'block';
+    loadPortfolio();
+    loadPosts();
+  }
+
+  // Auto-login if key in session
+  if (adminKey) {
+    fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: adminKey }) })
+      .then(r => r.json()).then(({ ok }) => { if (ok) showApp(); else sessionStorage.removeItem('vd_admin_key'); });
+  }
+
+  // ── Tabs ──────────────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', ['portfolio','blog'][i] === tab));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+  }
+
+  // ── Toast ─────────────────────────────────────────────────────────────────
+  function toast(msg, error = false) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'show' + (error ? ' error' : '');
+    setTimeout(() => el.className = '', 3000);
+  }
+
+  // ── Modal ─────────────────────────────────────────────────────────────────
+  function openModal(id)  { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(o => o.classList.remove('open')); });
+
+  // ── Image upload ──────────────────────────────────────────────────────────
+  async function uploadImage(input, pathField, previewId) {
+    if (!input.files[0]) return;
+    const form = new FormData();
+    form.append('image', input.files[0]);
+    toast('Subiendo imagen…');
+    const res  = await fetch('/api/upload', { method: 'POST', headers: { 'X-Admin-Key': adminKey }, body: form });
+    const data = await res.json();
+    if (data.url) {
+      document.getElementById(pathField).value = data.url;
+      const prev = document.getElementById(previewId);
+      prev.src = '/' + data.url; prev.style.display = 'block';
+      toast('Imagen subida correctamente');
+    } else { toast('Error al subir la imagen', true); }
+  }
+
+  // ── Portfolio ─────────────────────────────────────────────────────────────
+  async function loadPortfolio() {
+    const data = await fetch('/api/portfolio').then(r => r.json());
+    const list = document.getElementById('portfolio-list');
+    if (!data.projects.length) { list.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:14px;">No hay proyectos aún.</p>'; return; }
+    list.innerHTML = data.projects.map(p => `
+      <div class="admin-portfolio-card">
+        <div class="admin-portfolio-img">
+          ${p.image
+            ? `<img src="/${p.image}" alt="${p.title}" onerror="this.style.display='none';this.nextSibling.style.display='flex'">`
+            : ''}
+          <div class="admin-portfolio-img-placeholder" style="${p.image ? 'display:none' : ''}">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="admin-portfolio-body">
+          <div class="admin-portfolio-cat">${p.category}</div>
+          <div class="admin-portfolio-title">${p.title}</div>
+          <div class="admin-card-actions">
+            <button class="btn-sm" onclick='editPortfolioItem(${JSON.stringify(p).replace(/'/g,"\\'")})'> Editar</button>
+            <button class="btn-sm btn-danger" onclick="deletePortfolioItem('${p.id}')">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function openPortfolioModal(p = null) {
+    document.getElementById('portfolio-modal-title').textContent = p ? 'Editar proyecto' : 'Nuevo proyecto';
+    document.getElementById('p-category').value  = p?.category  || '';
+    document.getElementById('p-title').value      = p?.title     || '';
+    document.getElementById('p-image').value      = p?.image     || '';
+    document.getElementById('p-thumbnail').value  = p?.thumbnail || '';
+    document.getElementById('p-link').value       = p?.link      || '#';
+    document.getElementById('p-editing-id').value = p?.id        || '';
+    document.getElementById('p-img-preview').style.display = 'none';
+    openModal('portfolio-modal');
+  }
+
+  function editPortfolioItem(p) { openPortfolioModal(p); }
+
+  async function savePortfolioItem() {
+    const id   = document.getElementById('p-editing-id').value;
+    const body = {
+      category:  document.getElementById('p-category').value.trim(),
+      title:     document.getElementById('p-title').value.trim(),
+      image:     document.getElementById('p-image').value.trim(),
+      thumbnail: document.getElementById('p-thumbnail').value.trim(),
+      link:      document.getElementById('p-link').value.trim() || '#',
+    };
+    if (!body.title) { toast('El título es obligatorio', true); return; }
+    const url    = id ? `/api/portfolio/${id}` : '/api/portfolio';
+    const method = id ? 'PUT' : 'POST';
+    const res    = await fetch(url, { method, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey }, body: JSON.stringify(body) });
+    if (res.ok) { closeModal('portfolio-modal'); loadPortfolio(); toast(id ? 'Proyecto actualizado' : 'Proyecto añadido'); }
+    else        { toast('Error al guardar', true); }
+  }
+
+  async function deletePortfolioItem(id) {
+    if (!confirm('¿Seguro que quieres eliminar este proyecto?')) return;
+    await fetch(`/api/portfolio/${id}`, { method: 'DELETE', headers: { 'X-Admin-Key': adminKey } });
+    loadPortfolio(); toast('Proyecto eliminado');
+  }
+
+  // ── Blog ──────────────────────────────────────────────────────────────────
+  let mde = null;
+
+  async function loadPosts() {
+    const data = await fetch('/api/posts').then(r => r.json());
+    const list = document.getElementById('posts-list');
+    if (!data.posts.length) { list.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:14px;">No hay artículos aún. ¡Crea el primero!</p>'; return; }
+    list.innerHTML = data.posts.map(p => `
+      <div class="post-row">
+        <div class="post-row-cover">
+          ${p.cover ? `<img src="/${p.cover}" alt="">` : `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/></svg>`}
+        </div>
+        <div class="post-row-info">
+          <div class="post-row-cat">${p.category}</div>
+          <div class="post-row-title">${p.title}</div>
+          <div class="post-row-date">${new Date(p.date).toLocaleDateString('es-ES', { day:'numeric', month:'short', year:'numeric' })}</div>
+        </div>
+        <div class="post-row-actions">
+          <a href="/blog/${p.slug}" target="_blank" class="btn-sm">Ver</a>
+          <button class="btn-sm" onclick='editPost(${JSON.stringify(p).replace(/'/g,"\\'")})'> Editar</button>
+          <button class="btn-sm btn-danger" onclick="deletePost('${p.slug}')">Eliminar</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function autoSlug() {
+    if (document.getElementById('post-editing-slug').value) return;
+    const title = document.getElementById('post-title').value;
+    document.getElementById('post-slug').value = title
+      .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
+  }
+
+  function openPostModal(p = null) {
+    document.getElementById('post-modal-title').textContent = p ? 'Editar artículo' : 'Nuevo artículo';
+    document.getElementById('post-title').value         = p?.title    || '';
+    document.getElementById('post-slug').value          = p?.slug     || '';
+    document.getElementById('post-category').value      = p?.category || '';
+    document.getElementById('post-excerpt').value       = p?.excerpt  || '';
+    document.getElementById('post-cover').value         = p?.cover    || '';
+    document.getElementById('post-editing-slug').value  = p?.slug     || '';
+    document.getElementById('post-img-preview').style.display = 'none';
+
+    if (mde) { mde.toTextArea(); mde = null; }
+    document.getElementById('post-content').value = p?.content || '';
+    mde = new EasyMDE({
+      element: document.getElementById('post-content'),
+      spellChecker: false,
+      autofocus: false,
+      placeholder: 'Escribe el contenido del artículo en Markdown…',
+      toolbar: ['bold','italic','heading','|','quote','unordered-list','ordered-list','|','link','image','|','preview','side-by-side','fullscreen','|','guide'],
+      minHeight: '300px',
+    });
+    openModal('post-modal');
+  }
+
+  function editPost(p) { openPostModal(p); }
+
+  async function savePost() {
+    const editingSlug = document.getElementById('post-editing-slug').value;
+    const body = {
+      slug:     document.getElementById('post-slug').value.trim(),
+      title:    document.getElementById('post-title').value.trim(),
+      category: document.getElementById('post-category').value.trim(),
+      excerpt:  document.getElementById('post-excerpt').value.trim(),
+      cover:    document.getElementById('post-cover').value.trim(),
+      content:  mde ? mde.value() : document.getElementById('post-content').value,
+    };
+    if (!body.title || !body.slug) { toast('El título y el slug son obligatorios', true); return; }
+    const url    = editingSlug ? `/api/posts/${editingSlug}` : '/api/posts';
+    const method = editingSlug ? 'PUT' : 'POST';
+    const res    = await fetch(url, { method, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey }, body: JSON.stringify(body) });
+    if (res.ok) { closeModal('post-modal'); loadPosts(); toast(editingSlug ? 'Artículo actualizado' : 'Artículo publicado'); }
+    else        { toast('Error al guardar', true); }
+  }
+
+  async function deletePost(slug) {
+    if (!confirm('¿Seguro que quieres eliminar este artículo?')) return;
+    await fetch(`/api/posts/${slug}`, { method: 'DELETE', headers: { 'X-Admin-Key': adminKey } });
+    loadPosts(); toast('Artículo eliminado');
+  }
+</script>
+</body>
+</html>

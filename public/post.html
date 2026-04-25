@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Artículo — VigilDigital</title>
+  <meta name="description" id="page-desc" content="">
+  <link rel="stylesheet" href="/css/vigil.css">
+  <!-- marked.js para renderizar Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <style>
+    .post-hero {
+      padding: 80px 0 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(91,114,247,0.10) 0%, transparent 65%);
+    }
+    .post-hero-inner {
+      max-width: 800px; margin: 0 auto; padding: 0 40px;
+      text-align: center; padding-bottom: 48px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none;
+      transition: color 0.2s; margin-bottom: 32px;
+    }
+    .back-link:hover { color: #5b72f7; }
+    .post-date-meta {
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      font-size: 13px; color: rgba(255,255,255,0.35); margin-top: 20px; flex-wrap: wrap;
+    }
+    .post-cover {
+      max-width: 900px; margin: 0 auto 0;
+      border-radius: 0 0 32px 32px; overflow: hidden;
+      background: linear-gradient(135deg, #0d1030, #1a1f4e);
+    }
+    .post-cover img { width: 100%; max-height: 480px; object-fit: cover; display: block; }
+    .post-cover-placeholder {
+      height: 320px; display: flex; align-items: center; justify-content: center;
+    }
+    .post-body {
+      padding: 72px 40px 96px;
+      max-width: 800px; margin: 0 auto;
+    }
+    .post-footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 48px 40px 80px;
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center;
+    }
+    .post-footer-title { font-size: 22px; font-weight: 800; }
+    .not-found { text-align: center; padding: 120px 40px; color: rgba(255,255,255,0.4); }
+    @media (max-width: 767px) {
+      .post-hero-inner { padding: 0 20px 40px; }
+      .post-body { padding: 48px 20px 72px; }
+      .post-footer { padding: 40px 20px 64px; }
+    }
+  </style>
+</head>
+<body>
+<div id="scroll-bar"></div>
+
+<nav id="main-nav">
+  <a href="/" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><rect width="100" height="100" rx="22" fill="#0f172a"/><defs><linearGradient id="bl" x1="50" y1="78" x2="26" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient><linearGradient id="br" x1="50" y1="78" x2="74" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1e40af"/><stop offset="60%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs><line x1="50" y1="78" x2="26" y2="28" stroke="url(#bl)" stroke-width="13" stroke-linecap="round"/><line x1="50" y1="78" x2="59.1" y2="59" stroke="url(#br)" stroke-width="13" stroke-linecap="round"/><circle cx="66.6" cy="43.5" r="6.5" fill="url(#br)"/><circle cx="74" cy="28" r="6.5" fill="url(#br)"/></svg>
+    <span class="nav-logo-text">Vigil<span>Digital</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#por-que-yo" class="nav-link">Por qué yo</a>
+    <a href="/#servicios" class="nav-link">Servicios</a>
+    <a href="/#portfolio" class="nav-link">Portfolio</a>
+    <a href="/#precios" class="nav-link">Precios</a>
+    <a href="/blog" class="nav-link active">Blog</a>
+    <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" class="btn-nav-glass">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.119 1.535 5.854L.057 23.18a.75.75 0 00.923.923l5.326-1.478A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.93 0-3.74-.522-5.29-1.433l-.38-.225-3.24.9.9-3.24-.225-.38A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+  <button id="menu-btn" aria-label="Abrir menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <button id="close-menu-btn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="/blog" class="mobile-link">← Blog</a>
+  <a href="https://wa.me/34694201981" target="_blank" rel="noopener noreferrer" class="btn-glass">WhatsApp</a>
+</div>
+
+<main id="post-main" class="page-wrap"></main>
+
+<script>
+  // Nav
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('sc', window.scrollY > 50); }, { passive: true });
+  const bar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => { bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; }, { passive: true });
+
+  // Mobile menu
+  document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('open'));
+  document.getElementById('close-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+
+  // Get slug from URL
+  const slug = location.pathname.replace('/blog/', '').replace(/\/$/, '');
+
+  function readTime(content) { return Math.max(1, Math.ceil(content.split(' ').length / 200)); }
+
+  fetch(`/api/posts/${slug}`)
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(post => {
+      document.getElementById('page-title').textContent = `${post.title} — VigilDigital`;
+      document.getElementById('page-desc').content = post.excerpt;
+
+      const rt = post.readTime || readTime(post.content);
+      const dateStr = new Date(post.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      document.getElementById('post-main').innerHTML = `
+        <div class="post-hero">
+          <div class="post-hero-inner">
+            <a href="/blog" class="back-link fade-up">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+              Volver al blog
+            </a>
+            <span class="post-category fade-up d1">${post.category}</span>
+            <h1 style="font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-0.035em;line-height:1.08;margin-top:16px;color:#fff;" class="fade-up d1">${post.title}</h1>
+            <div class="post-date-meta fade-up d2">
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:5px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${dateStr}</span>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${rt} min de lectura</span>
+            </div>
+          </div>
+          ${post.cover ? `
+          <div class="post-cover fade-up d2">
+            <img src="/${post.cover}" alt="${post.title}">
+          </div>` : ''}
+        </div>
+
+        <div class="post-body">
+          <article class="post-content">${marked.parse(post.content)}</article>
+        </div>
+
+        <div class="post-footer">
+          <p class="post-footer-title">¿Quieres una web así para tu negocio?</p>
+          <p style="color:rgba(255,255,255,0.5);font-size:15px;max-width:420px;">Hablemos sin compromiso. Te explico qué haría con tu proyecto en una llamada de 15 minutos.</p>
+          <a href="https://wa.me/34694201981?text=Hola%2C%20he%20le%C3%ADdo%20tu%20blog%20y%20me%20interesa%20hablar%20sobre%20mi%20web" target="_blank" rel="noopener noreferrer" class="btn-glass">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.119 1.535 5.854L.057 23.18a.75.75 0 00.923.923l5.326-1.478A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.93 0-3.74-.522-5.29-1.433l-.38-.225-3.24.9.9-3.24-.225-.38A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Escribirme por WhatsApp
+          </a>
+          <a href="/blog" class="btn-ghost" style="margin-top:4px;">← Más artículos</a>
+        </div>
+      `;
+    })
+    .catch(() => {
+      document.getElementById('post-main').innerHTML = `
+        <div class="not-found">
+          <p style="font-size:48px;margin-bottom:16px;">404</p>
+          <p style="font-size:18px;margin-bottom:32px;">Artículo no encontrado</p>
+          <a href="/blog" class="btn-glass">Ver todos los artículos</a>
+        </div>`;
+    });
+</script>
+</body>
+</html>

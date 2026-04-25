@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "category": "E-COMMERCE",
+      "title": "Tienda de Moda Local",
+      "image": "assets/fiyu_logo.jpeg",
+      "link": "#"
+    },
+    {
+      "category": "RESTAURACIÓN",
+      "title": "Restaurante El Rincón",
+      "image": "assets/portfolio-2.jpg",
+      "link": "#"
+    },
+    {
+      "category": "SERVICIOS",
+      "title": "Clínica Dental Sonrisa",
+      "image": "assets/portfolio-3.jpg",
+      "link": "#"
+    },
+    {
+      "category": "INMOBILIARIA",
+      "title": "Asturias Propiedades",
+      "image": "assets/portfolio-4.jpg",
+      "link": "#"
+    }
+  ]
+}

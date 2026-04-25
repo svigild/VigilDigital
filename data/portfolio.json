@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "category": "E-COMMERCE",
+      "title": "Tienda de Moda Local",
+      "image": "assets/fiyu_logo.jpeg",
+      "thumbnail": "",
+      "link": "#"
+    },
+    {
+      "id": 2,
+      "category": "DEPORTES",
+      "title": "Tienda de Tenis",
+      "image": "assets/deportivu-1777106566872.jpeg",
+      "thumbnail": "",
+      "link": "#"
+    }
+  ]
+}
