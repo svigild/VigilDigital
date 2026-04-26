@@ -24,8 +24,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" /></noscript>
+  <!-- Precarga HLS.js para que esté listo en caché cuando el vídeo lo necesite -->
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js" crossorigin />
 
   <script type="application/ld+json">
   {
@@ -1314,12 +1317,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Carga el vídeo solo cuando el navegador esté libre (no bloquea LCP)
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(initVideo, { timeout: 3000 });
-  } else {
-    setTimeout(initVideo, 1500);
-  }
+  // Inicia el vídeo tras el primer render (~200ms), sin bloquear LCP ni FCP
+  setTimeout(initVideo, 200);
 
   /* ── 2. Scroll Progress Bar & Nav Background ── */
   const bar = document.getElementById('scroll-bar');
