@@ -388,6 +388,9 @@
       #main-nav.sc { background: rgba(9,13,26,0.95); }
       .nav-links { display: none !important; }
       #menu-btn { display: flex !important; align-items: center; justify-content: center; }
+      /* Disable heavy backdrop-filter on mobile for better GPU performance */
+      .hw-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(255,255,255,0.055) !important; }
+      .pc { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
     }
     /* ── Sección Por qué yo: Foto ── */
     #wrapper-porqueyo {
@@ -521,10 +524,16 @@
 
     .pc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 980px; margin: 0 auto; }
 
+    /* ── Content Visibility (off-screen rendering skip) ── */
+    #servicios, #portfolio, #blog-preview, #precios, #contacto {
+      content-visibility: auto;
+      contain-intrinsic-size: 0 600px;
+    }
+
     /* ── Portfolio ── */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
       gap: 24px;
       margin-top: 48px;
     }
@@ -755,10 +764,10 @@
 
   <video id="bg-video" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" autoplay muted loop playsinline></video>
 
-  <div style="position:absolute; top:8%; left:6%; width:460px; height:460px; border-radius:50%; background:radial-gradient(circle,rgba(74,112,245,0.18) 0%,transparent 70%); filter:blur(70px); z-index:1; pointer-events:none;"></div>
-  <div style="position:absolute; top:30%; left:30%; width:520px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(16,212,160,0.08) 0%,transparent 70%); filter:blur(90px); z-index:1; pointer-events:none;"></div>
-  <div style="position:absolute; bottom:12%; left:4%; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle,rgba(58,92,224,0.14) 0%,transparent 70%); filter:blur(55px); z-index:1; pointer-events:none;"></div>
-  <div style="position:absolute; top:18%; right:8%; width:380px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%); filter:blur(40px); z-index:1; pointer-events:none;"></div>
+  <div style="position:absolute; top:8%; left:6%; width:680px; height:680px; border-radius:50%; background:radial-gradient(circle,rgba(74,112,245,0.13) 0%,rgba(74,112,245,0.04) 45%,transparent 70%); z-index:1; pointer-events:none;"></div>
+  <div style="position:absolute; top:25%; left:28%; width:720px; height:480px; border-radius:50%; background:radial-gradient(circle,rgba(16,212,160,0.06) 0%,rgba(16,212,160,0.02) 45%,transparent 70%); z-index:1; pointer-events:none;"></div>
+  <div style="position:absolute; bottom:8%; left:2%; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(58,92,224,0.10) 0%,rgba(58,92,224,0.03) 45%,transparent 70%); z-index:1; pointer-events:none;"></div>
+  <div style="position:absolute; top:15%; right:5%; width:560px; height:420px; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,0.03) 0%,transparent 65%); z-index:1; pointer-events:none;"></div>
 
   <div class="hero-content" style="position:relative; z-index:10; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:0 40px; max-width:900px;">
     <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#5b72f7; margin-bottom:16px;">Diseño Web Profesional · Asturias</div>
